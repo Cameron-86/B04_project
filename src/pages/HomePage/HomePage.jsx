@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 const HomePage = () => {
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <StMain>
       <StHeader>
@@ -23,11 +27,15 @@ const HomePage = () => {
       </StNews>
 
       <StCommunity>
-        <div className="serach-MiddleContainer">
+        <div className="search-MiddleContainer">
           <button>최신 글</button>
           <button>인기 글</button>
         </div>
       </StCommunity>
+
+      <StMoveTop onclick={handleScrollToTop}>
+        <button>↑</button>
+      </StMoveTop>
     </StMain>
   );
 };
@@ -152,16 +160,17 @@ const StCommunity = styled.div`
   height: 380px;
   position: relative;
   display: flex;
-  /* align-items: center; 이거 먹이면 위에 stnews랑 다르게 버튼들이 중앙고정되서 뺌 */
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
 
   .search-MiddleContainer {
-    position: absolute;
-    top: 20px;
+    position: relative; /* 나중에 버튼 위치 더 세밀조정 필요 */
+    bottom: 165px;
+    left: 0px;
     right: 20px;
     display: flex;
-    gap: 10px;
+    gap: 0px;
   }
 
   button {
@@ -177,5 +186,37 @@ const StCommunity = styled.div`
     &:hover {
       background-color: #0056b3;
     }
+  }
+`;
+
+// 스크롤 to top 버튼
+
+const StMoveTop = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background-color: #007bff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  button {
+    border: none;
+    background: none;
+    color: white;
+    font-size: 1.5rem; /* 화살표 크기 확장 */
+    font-weight: bold; /* 화살표 두께 증가 */
+    cursor: pointer;
+    outline: none;
   }
 `;
