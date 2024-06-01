@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FetchData from "../../components/FetchData";
+import GameRankFetchData from "../../components/GameRankFetchData";
 
 const HomePage = () => {
   const handleScrollToTop = () => {
@@ -26,7 +26,7 @@ const HomePage = () => {
         </div>
       </StHeaderTools>
       <StNews>
-        <FetchData />
+        <GameRankFetchData />
       </StNews>
 
       <StCommunity>
