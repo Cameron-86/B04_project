@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import FetchData from "../../components/FetchData";
 
 const HomePage = () => {
   const handleScrollToTop = () => {
@@ -14,8 +15,7 @@ const HomePage = () => {
           <button>Sign in</button>
         </div>
       </StHeader>
-
-      <StNews>
+      <StHeaderTools>
         <div className="news-toggle">
           <button>최신 뉴스</button>
           <button>인기 뉴스</button>
@@ -24,6 +24,9 @@ const HomePage = () => {
           <input type="text" placeholder="검색" />
           <button>검색</button>
         </div>
+      </StHeaderTools>
+      <StNews>
+        <FetchData />
       </StNews>
 
       <StCommunity>
@@ -87,7 +90,6 @@ const StHeader = styled.header`
     right: 100px;
     margin-bottom: 50px;
     padding-right: 20px;
-    font-weight: bold;
 
     button {
       padding: 10px 20px;
@@ -105,10 +107,10 @@ const StHeader = styled.header`
 `;
 
 const StNews = styled.div`
-  margin: 170px 0 20px;
+  margin: 180px 0 30px;
   padding: 20px;
   background-color: #bfb9bb;
-  height: 350px;
+  height: 600px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -117,19 +119,23 @@ const StNews = styled.div`
   box-sizing: border-box;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
+`;
+
+const StHeaderTools = styled.div`
+  position: relative;
+  top: 190px; /* StHeader의 높이만큼 아래로 이동 */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
 
   .news-toggle {
-    position: absolute;
-    top: 20px;
-    left: 20px;
     display: flex;
     gap: 15px; /* 버튼 사이 간격 설정 */
   }
 
   .search-TopContainer {
-    position: absolute;
-    top: 20px;
-    right: 20px;
     display: flex;
     gap: 10px;
   }
@@ -160,7 +166,7 @@ const StCommunity = styled.div`
   margin-top: 5px;
   width: 100%;
   box-sizing: border-box;
-  height: 380px;
+  height: 600px; /* 이전값 380px */
   position: relative;
   display: flex;
   align-items: center;
@@ -177,7 +183,7 @@ const StCommunity = styled.div`
   }
 
   button {
-    margin-top: 15px;
+    margin-bottom: 200px; /* 이전 값margin-top: 150px; */
     margin-left: 20px;
     padding: 5px 10px;
     border: none;
