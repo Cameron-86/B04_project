@@ -150,6 +150,11 @@ const StCommunity = styled.div`
   width: 100%;
   box-sizing: border-box;
   height: 380px;
+  position: relative;
+  display: flex;
+  /* align-items: center; 이거 먹이면 위에 stnews랑 다르게 버튼들이 중앙고정되서 뺌 */
+  justify-content: space-between;
+  flex-wrap: wrap;
 
   .search-MiddleContainer {
     position: absolute;
