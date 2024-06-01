@@ -10,11 +10,13 @@ const GameRankFetchData = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase.from("Test_best100game").select("*");
+      const { data, error } = await supabase
+        .from("Test_best100game")
+        .select("*")
+        .order("created_at", { ascending: true }); // 업로드된 순서대로 정렬
       if (error) {
         console.error("Error fetching data: ", error);
       } else {
-        console.log("Data fetched: ", data);
         setGames(data);
       }
       setLoading(false);
@@ -52,8 +54,10 @@ const GameRankFetchData = () => {
     <div>
       <StFetchGameList>
         {currentItems.length > 0 ? (
-          currentItems.map((game) => (
+          currentItems.map((game, index) => (
             <StGameCard key={game.id}>
+              <Rank>{indexOfFirstItem + index + 1}</Rank>
+              {game.image_url && <img src={game.image_url} alt={game.title} />}
               <h2>{game.title}</h2>
               <h3>{game.description}</h3>
             </StGameCard>
@@ -98,23 +102,31 @@ const StFetchGameList = styled.div`
 `;
 
 const StGameCard = styled.div`
-  background-color: white;
+  background-color: #2a2829;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: calc(20% - 20px);
   box-sizing: border-box;
   text-align: left;
+  position: relative; /* 랭킹 번호 위치를 위한 상대적 위치 설정 */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 400px;
+  height: 500px;
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
 
   h2,
   p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #ffffff;
   }
 
   h3 {
@@ -124,7 +136,18 @@ const StGameCard = styled.div`
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     white-space: normal;
+    color: #ffffff;
   }
+`;
+
+const Rank = styled.div`
+  position: absolute;
+  top: -20px; /* 카드 바깥으로 약간 벗어남 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 5rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px #000000; /* 검은색 외곽선 효과 */
 `;
 
 const Pagination = styled.div`
