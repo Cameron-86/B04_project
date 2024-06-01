@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <StMain>
       <StHeader>
-        <div className="title">HomePage</div>
+        <div className="title">Gaming Nerd</div>
         <div className="login-buttons">
           <button>Log in</button>
           <button>Sign in</button>
@@ -33,7 +33,7 @@ const HomePage = () => {
         </div>
       </StCommunity>
 
-      <StMoveTop onclick={handleScrollToTop}>
+      <StMoveTop onClick={handleScrollToTop}>
         <button>↑</button>
       </StMoveTop>
     </StMain>
@@ -56,8 +56,9 @@ const StHeader = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
-  height: 150px;
-  background-color: #f8f9fa;
+  height: 100px;
+
+  background-color: #f56263;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: flex;
@@ -72,6 +73,7 @@ const StHeader = styled.header`
   }
 
   .title {
+    color: #ffffff;
     flex: 1;
     text-align: center;
     font-size: 1.5rem;
@@ -83,19 +85,20 @@ const StHeader = styled.header`
     gap: 10px;
     position: absolute;
     right: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     padding-right: 20px;
+    font-weight: bold;
 
     button {
       padding: 10px 20px;
       border: none;
       border-radius: 5px;
-      background-color: #007bff;
+      background-color: #ffbf00;
       color: white;
       cursor: pointer;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #e6b800;
       }
     }
   }
@@ -104,7 +107,7 @@ const StHeader = styled.header`
 const StNews = styled.div`
   margin: 170px 0 20px;
   padding: 20px;
-  background-color: #e9ecef;
+  background-color: #bfb9bb;
   height: 350px;
   display: flex;
   align-items: center;
@@ -141,18 +144,18 @@ const StNews = styled.div`
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #ffbf00;
     color: white;
     cursor: pointer;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #e6b800;
     }
   }
 `;
 
 const StCommunity = styled.div`
-  background-color: #e9ecef;
+  background-color: #bfb9bb;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-top: 5px;
   width: 100%;
@@ -179,12 +182,12 @@ const StCommunity = styled.div`
     padding: 5px 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #ffbf00;
     color: white;
     cursor: pointer;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #e6b800;
     }
   }
 `;
@@ -200,14 +203,14 @@ const StMoveTop = styled.div`
   justify-content: center;
   width: 3rem;
   height: 3rem;
-  background-color: #007bff;
+  background-color: #f56263;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #d94a53;
   }
 
   button {
