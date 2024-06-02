@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GameRankFetchData from "../../components/GameRankFetchData";
+import GameRankFetchData from "../../api/GameRankFetchData";
 
 const HomePage = () => {
   const handleScrollToTop = () => {
