@@ -1,7 +1,27 @@
+import { useState } from "react";
 import styled from "styled-components";
 import GameRankFetchData from "../../api/GameRankFetchData";
+import GenreDropdown from "../../components/GenreDropdown";
+import SearchTopContainer from "../../components/SearchTopContainer";
 
 const HomePage = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // 검색 처리 함수
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  // 장르 선택 함수
+  const handleGenreSelect = (genre) => {
+    if (genre === "전체") {
+      setSearchQuery("");
+    } else {
+      setSearchQuery(genre);
+    }
+  };
+
+  // 스크롤을 최상단으로 이동하는 함수
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -16,17 +36,11 @@ const HomePage = () => {
         </div>
       </StHeader>
       <StHeaderTools>
-        <div className="news-toggle">
-          <button>최신 뉴스</button>
-          <button>인기 뉴스</button>
-        </div>
-        <div className="search-TopContainer">
-          <input type="text" placeholder="검색" />
-          <button>검색</button>
-        </div>
+        <GenreDropdown onGenreSelect={handleGenreSelect} />
+        <SearchTopContainer onSearch={handleSearch} />
       </StHeaderTools>
       <StNews>
-        <GameRankFetchData />
+        <GameRankFetchData searchQuery={searchQuery} />
       </StNews>
 
       <StCommunity>
@@ -45,6 +59,7 @@ const HomePage = () => {
 
 export default HomePage;
 
+// 스타일드 컴포넌트 정의
 const StMain = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -60,7 +75,6 @@ const StHeader = styled.header`
   top: 0;
   width: 100%;
   height: 100px;
-
   background-color: #f56263;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -106,6 +120,16 @@ const StHeader = styled.header`
   }
 `;
 
+const StHeaderTools = styled.div`
+  position: relative;
+  top: 190px; /* StHeader의 높이만큼 아래로 이동 */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+`;
+
 const StNews = styled.div`
   margin: 180px 0 30px;
   padding: 20px;
@@ -119,45 +143,6 @@ const StNews = styled.div`
   box-sizing: border-box;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
-`;
-
-const StHeaderTools = styled.div`
-  position: relative;
-  top: 190px; /* StHeader의 높이만큼 아래로 이동 */
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  box-sizing: border-box;
-
-  .news-toggle {
-    display: flex;
-    gap: 15px; /* 버튼 사이 간격 설정 */
-  }
-
-  .search-TopContainer {
-    display: flex;
-    gap: 10px;
-  }
-
-  input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-  button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ffbf00;
-    color: white;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #e6b800;
-    }
-  }
 `;
 
 const StCommunity = styled.div`
@@ -183,7 +168,7 @@ const StCommunity = styled.div`
   }
 
   button {
-    margin-bottom: 200px; /* 이전 값margin-top: 150px; */
+    margin-bottom: 200px; /* 이전 값 margin-top: 150px; */
     margin-left: 20px;
     padding: 5px 10px;
     border: none;
@@ -199,7 +184,6 @@ const StCommunity = styled.div`
 `;
 
 // 스크롤 to top 버튼
-
 const StMoveTop = styled.div`
   position: fixed;
   bottom: 20px;

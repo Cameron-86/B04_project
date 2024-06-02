@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import supabase from "../supabaseClient";
 
-const GameRankFetchData = () => {
+const GameRankFetchData = ({ searchQuery }) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +25,13 @@ const GameRankFetchData = () => {
     fetchData();
   }, []);
 
+  // 검색 쿼리가 변경될 때마다 데이터 필터링
+  const filteredGames = games.filter(
+    (game) =>
+      game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      game.genre.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -43,12 +50,14 @@ const GameRankFetchData = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = games.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(games.length / itemsPerPage);
+  const currentItems = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const showRank = searchQuery === "";
 
   return (
     <div>
@@ -56,10 +65,11 @@ const GameRankFetchData = () => {
         {currentItems.length > 0 ? (
           currentItems.map((game, index) => (
             <StGameCard key={game.id}>
-              <Rank>{indexOfFirstItem + index + 1}</Rank>
+              {showRank && <Rank>{indexOfFirstItem + index + 1}</Rank>}
               {game.image_url && <img src={game.image_url} alt={game.title} />}
               <h2>{game.title}</h2>
               <h3>{game.description}</h3>
+              {/* game.genre는 검색에만 사용되고 화면에는 보이지 않음 */}
             </StGameCard>
           ))
         ) : (
