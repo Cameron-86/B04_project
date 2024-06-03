@@ -32,13 +32,13 @@ const HomePage = () => {
   return (
     <StMain>
       <StHeader>
-        <div className="title" onClick={handleScrollToTop}>
-          Gaming Nerd
-        </div>
+        <h1 className="title" onClick={handleScrollToTop}>
+          Gaming<span>Nerd</span>
+        </h1>
         <SearchTopContainer onSearch={handleSearch} />
         <div className="login-buttons">
-          <button>Log in</button>
-          <button>Sign in</button>
+          <button>로그인</button>
+          <button>가입</button>
         </div>
       </StHeader>
 

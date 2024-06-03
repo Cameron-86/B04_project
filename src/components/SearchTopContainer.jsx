@@ -28,23 +28,32 @@ export default SearchTopContainer;
 const StSearchContainer = styled.div`
   display: flex;
   gap: 10px;
+  width: 350px;
 
   input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 0 22px;
+    border-radius: 25px;
+    height: 48px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+    outline: none;
   }
 
   button {
-    padding: 5px 10px;
+    padding: 5px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     background-color: #ffbf00;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
+    flex-shrink: 0;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.4s;
 
     &:hover {
-      background-color: #e6b800;
+      background-color: #ffcf3e;
     }
   }
 `;

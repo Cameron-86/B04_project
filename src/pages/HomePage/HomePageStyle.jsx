@@ -12,17 +12,19 @@ export const StMain = styled.div`
 `;
 
 export const StHeader = styled.header`
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
-  height: 100px;
-  background-color: #f56263;
+  height: 80px;
+  background-color: #121212;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  display: grid;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 100px;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-sizing: border-box;
+  gap: 16px;
 
   .header-content {
     display: flex;
@@ -32,46 +34,45 @@ export const StHeader = styled.header`
 
   .title {
     color: #ffffff;
-    flex: 1;
-    text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
-    text-align: center; /* 왼쪽으로 붙이기 위해 추가 */
-    cursor: pointer; /* 커서를 포인터로 설정하여 클릭 가능하게 보이도록 함 */
+    text-align: left;
+    cursor: pointer;
+    flex: 1;
+
+    span {
+      font-weight: normal;
+    }
+    /* text-align: center; 왼쪽으로 붙이기 위해 추가 */
+    /* cursor: pointer; 커서를 포인터로 설정하여 클릭 가능하게 보이도록 함 */
   }
 
   .login-buttons {
     display: flex;
     gap: 10px;
-    position: absolute;
-    right: 100px;
-    margin-bottom: 50px;
-    padding-right: 20px;
 
     button {
-      padding: 10px 20px;
+      padding: 10px 18px;
       border: none;
-      border-radius: 5px;
-      background-color: #ffbf00;
-      color: white;
+      border-radius: 25px;
+      background-color: #363636;
+      color: #ffffff;
       cursor: pointer;
+      height: 48px;
+      font-size: 15px;
+      font-weight: bold;
+      transition: 0.4s;
 
       &:hover {
-        background-color: #e6b800;
+        background-color: #666666;
       }
     }
   }
 `;
 
 export const StNews = styled.div`
-  margin: 70px 0 30px;
-  padding: 20px;
+  padding: 20px 20px 70px;
   background-color: #121212;
-  height: 450px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
   width: 100%;
   box-sizing: border-box;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -79,9 +80,8 @@ export const StNews = styled.div`
 `;
 
 export const StCommunity = styled.div`
-  background-color: gray;
+  padding-top: 45px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: -30px;
   width: 100%;
   max-width: 1320px;
   box-sizing: border-box;
@@ -102,17 +102,19 @@ export const StCommunity = styled.div`
   }
 
   button {
-    margin-bottom: 200px; /* 이전 값 margin-top: 150px; */
+    height: 48px;
+    font-size: 15px;
+    font-weight: bold;
     margin-left: 20px;
-    padding: 5px 10px;
+    padding: 5px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     background-color: #ffbf00;
     color: white;
     cursor: pointer;
 
     &:hover {
-      background-color: #e6b800;
+      background-color: #ffcf3e;
     }
   }
 `;

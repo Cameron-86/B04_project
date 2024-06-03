@@ -57,7 +57,7 @@ const GameRankFetchData = ({ searchQuery }) => {
   const showRank = searchQuery === "";
 
   return (
-    <div>
+    <StContainer>
       <StFetchGameList>
         {currentItems.length > 0 ? (
           currentItems.map((game, index) => (
@@ -90,23 +90,23 @@ const GameRankFetchData = ({ searchQuery }) => {
           &gt;
         </button>
       </Pagination>
-    </div>
+    </StContainer>
   );
 };
 
 export default GameRankFetchData;
 
+const StContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
 const StFetchGameList = styled.div`
-  margin-top: -10px;
-  margin-bottom: 150px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-
   padding: 20px;
-  max-height: 650px;
-  overflow-y: auto;
 `;
 
 const StGameCard = styled.div`
@@ -114,19 +114,18 @@ const StGameCard = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: calc(20% - 20px);
+  width: calc(25% - 20px);
   box-sizing: border-box;
   text-align: left;
   position: relative; /* 랭킹 번호 위치를 위한 상대적 위치 설정 */
-  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 300px;
 
   img {
     width: 100%;
-    height: auto;
     border-radius: 8px;
+    aspect-ratio: 2 / 1.5;
+    object-fit: cover;
   }
 
   h2,
@@ -135,6 +134,9 @@ const StGameCard = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #ffffff;
+    font-size: 20px;
+    margin-top: 12px;
+    font-weight: bold;
   }
 
   h3 {
@@ -150,18 +152,26 @@ const StGameCard = styled.div`
 
 const Rank = styled.div`
   position: absolute;
-  top: -5px; /* 카드 바깥으로 약간 벗어남 */
+  top: 5px;
+  left: 3px;
+  font-size: 30px;
+  color: #ffffff;
+  text-shadow: 0px 0px 20px #000000;
+  font-weight: bold;
+  letter-spacing: -1.2px;
+
+  /* position: absolute;
+  top: -5px; 카드 바깥으로 약간 벗어남
   left: 50%;
   transform: translateX(-50%);
   font-size: 3rem;
   color: #ffffff;
-  text-shadow: 2px 2px 4px #000000; /* 검은색 외곽선 효과 */
+  text-shadow: 2px 2px 4px #000000; 검은색 외곽선 효과 */
 `;
 
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: -150px;
   button {
     margin: 0 5px;
     padding: 5px 10px;
