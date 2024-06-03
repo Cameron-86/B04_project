@@ -67,7 +67,7 @@ export const StNews = styled.div`
   margin: 70px 0 30px;
   padding: 20px;
   background-color: #121212;
-  height: 700px;
+  height: 450px;
   display: flex;
   align-items: center;
   justify-content: space-between;

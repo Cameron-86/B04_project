@@ -161,8 +161,7 @@ const Rank = styled.div`
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 50px;
-
+  margin-top: -150px;
   button {
     margin: 0 5px;
     padding: 5px 10px;
