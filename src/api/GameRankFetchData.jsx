@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import supabase from "../supabaseClient";
+import useSearch from "./../hooks/useSearch";
 
 const GameRankFetchData = ({ searchQuery }) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,12 +27,7 @@ const GameRankFetchData = ({ searchQuery }) => {
     fetchData();
   }, []);
 
-  // 검색 쿼리가 변경될 때마다 데이터 필터링
-  const filteredGames = games.filter(
-    (game) =>
-      game.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      game.genre.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  const filteredGames = useSearch(games, searchQuery);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -105,7 +102,7 @@ const StFetchGameList = styled.div`
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  background-color: #bfb9bb;
+
   padding: 20px;
   max-height: 650px;
   overflow-y: auto;
