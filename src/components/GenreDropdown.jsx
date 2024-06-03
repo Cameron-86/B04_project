@@ -24,6 +24,7 @@ export default GenreDropdown;
 
 const StGenreDropdown = styled.div`
   select {
+    margin-top: 10px;
     margin-left: 210px;
     padding: 5px 10px;
     border: none;

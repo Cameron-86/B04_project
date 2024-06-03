@@ -65,7 +65,7 @@ const GameRankFetchData = ({ searchQuery }) => {
               {showRank && <Rank>{indexOfFirstItem + index + 1}</Rank>}
               {game.image_url && <img src={game.image_url} alt={game.title} />}
               <h2>{game.title}</h2>
-              <h3>{game.description}</h3>
+
               {/* game.genre는 검색에만 사용되고 화면에는 보이지 않음 */}
             </StGameCard>
           ))
@@ -98,6 +98,7 @@ export default GameRankFetchData;
 
 const StFetchGameList = styled.div`
   margin-top: -10px;
+  margin-bottom: 150px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -120,7 +121,7 @@ const StGameCard = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 500px;
+  height: 300px;
 
   img {
     width: 100%;
@@ -149,10 +150,10 @@ const StGameCard = styled.div`
 
 const Rank = styled.div`
   position: absolute;
-  top: -20px; /* 카드 바깥으로 약간 벗어남 */
+  top: -5px; /* 카드 바깥으로 약간 벗어남 */
   left: 50%;
   transform: translateX(-50%);
-  font-size: 5rem;
+  font-size: 3rem;
   color: #ffffff;
   text-shadow: 2px 2px 4px #000000; /* 검은색 외곽선 효과 */
 `;
@@ -160,7 +161,7 @@ const Rank = styled.div`
 const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
 
   button {
     margin: 0 5px;

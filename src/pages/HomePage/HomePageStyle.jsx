@@ -64,7 +64,7 @@ export const StHeader = styled.header`
 `;
 
 export const StNews = styled.div`
-  margin: 60px 0 30px;
+  margin: 70px 0 30px;
   padding: 20px;
   background-color: #121212;
   height: 700px;
