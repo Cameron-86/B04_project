@@ -85,7 +85,7 @@ export const StCommunity = styled.div`
   width: 100%;
   max-width: 1320px;
   box-sizing: border-box;
-  height: 600px; /* 이전값 380px */
+  height: 100%; /* 이전값 380px */
   position: relative;
   display: flex;
   align-items: center;
@@ -94,7 +94,7 @@ export const StCommunity = styled.div`
 
   .search-MiddleContainer {
     position: relative; /* 나중에 버튼 위치 더 세밀조정 필요 */
-    bottom: 165px;
+    /* bottom: 165px; 글목록 생성 이전 썼던 값:165px */
     left: 0px;
     right: 20px;
     display: flex;

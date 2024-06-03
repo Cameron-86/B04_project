@@ -1,7 +1,10 @@
 import { useState } from "react";
+
 import GameRankFetchData from "../../api/GameRankFetchData";
 import GenreDropdown from "../../components/GenreDropdown";
 import SearchTopContainer from "../../components/SearchTopContainer";
+
+import FakeArticle from "../../api/FakeArticle";
 import { StCommunity, StHeader, StMain, StMoveTop, StNews } from "./HomePageStyle";
 
 const HomePage = () => {
@@ -50,6 +53,7 @@ const HomePage = () => {
           <button>최신 글</button>
           <button>인기 글</button>
         </div>
+        <FakeArticle />
       </StCommunity>
 
       <StMoveTop onClick={handleScrollToTop}>
