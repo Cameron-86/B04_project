@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import supabase from "../supabaseClient";
 
 const FakeArticle = () => {
@@ -26,6 +27,7 @@ const FakeArticle = () => {
         data.map((item) => (
           <StCard key={item.id}>
             <h2>{item.title}</h2>
+            {item.img_url && <img src={item.img_url} alt={item.title} />}
             <h3>{item.description}</h3>
           </StCard>
         ))
@@ -46,7 +48,6 @@ const StFetchList = styled.div`
   gap: 20px;
   justify-content: center;
   padding: 20px;
-
   width: 100%; /* 부모 stcommunity와 넓이 맞추기 위해 */
 `;
 
@@ -62,9 +63,17 @@ const StCard = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 500px;
+  position: relative;
 
   &:nth-child(odd) {
     margin-top: 50px; /* 홀수번째 카드는 50px 아래로 */
+  }
+
+  img {
+    width: 100%;
+    border-radius: 8px;
+    aspect-ratio: 2 / 1.5;
+    object-fit: cover;
   }
 
   h2,
