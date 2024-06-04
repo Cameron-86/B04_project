@@ -9,36 +9,27 @@ import SearchForm from "./SearchForm";
 import Navbar from "./Navbar";
 
 const Header = () => {
-  const { handleAuth } = useAuth(SIGN_OUT);
-  const dispatch = useDispatch();
   const isModalOpen = useSelector((state) => state.auth.isModalOpen);
-  const { isLoggedin, setIsLoggedin } = useAuthState();
-
-  const handleSignOut = async () => {
-    await handleAuth();
-    setIsLoggedin(false);
-  };
 
   return (
-    <Header>
+    <StHeader>
       <Container>
         <h1>LOGO</h1>
         <SearchForm />
         <Navbar />
-        {/* {!isLoggedin && <button onClick={() => dispatch(openModal())}>Login</button>}
-      {isLoggedin && <button onClick={handleSignOut}>Logout</button>}
-      {isModalOpen && <AuthModal open={isModalOpen} />} */}
+
+        {isModalOpen && <AuthModal open={isModalOpen} />}
       </Container>
-    </Header>
+    </StHeader>
   );
 };
 
 export default Header;
 
-export const StHeader = styled.header`
+const StHeader = styled.header`
   display: flex;
   justify-content: center;
-  width: 100vh;
+  width: 100%;
 `;
 
 const Container = styled.div`
@@ -48,5 +39,6 @@ const Container = styled.div`
   width: 100%;
   max-width: 1320px;
   height: 68px;
+  padding: 0 1rem;
   background-color: beige;
 `;

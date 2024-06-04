@@ -5,9 +5,7 @@ const SearchForm = () => {
   return (
     <StForm>
       <input type="text" />
-      <button>
-        <FaSearch />
-      </button>
+      <button>{<FaSearch />}</button>
     </StForm>
   );
 };
