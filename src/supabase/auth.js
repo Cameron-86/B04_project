@@ -19,11 +19,19 @@ export const signUp = async (email, password, nickname) => {
   }
   const userId = user?.id;
 
+  const { data: existingUser, error: selectError } = await supabase.from("User").select("id").eq("id", userId).single();
+
+  if (selectError && selectError.code !== "PGRST116") {
+    console.log("사용자 정보 조회 에러", selectError.message);
+    return;
+  }
+
   if (!user) {
     alert("회원가입 성공했지만 데이터 못받음");
     return;
   } else {
     const userName = email.split("@")[0];
+
     const { error: insertError } = await supabase.from("User").insert({
       id: userId,
       password,
@@ -31,8 +39,9 @@ export const signUp = async (email, password, nickname) => {
       nickname,
       user_name: userName,
     });
-    if (insertError) {
+    if (insertError && insertError.code !== "23505") {
       alert("테이블 업데이트 에러", insertError);
+      console.log("테이블 업데이트 에러", insertError);
     } else {
       alert("회원가입 성공 및 정보 저장 완료");
     }
@@ -40,7 +49,7 @@ export const signUp = async (email, password, nickname) => {
 };
 export const signInWithEmail = async (email, password) => {
   const { data: user, error: userError } = await supabase.from("User").select("id").eq("email", email).single();
-
+  console.log("hello");
   if (userError) {
     console.log("사용자 조회 에러", userError.message);
     alert("회원가입이 필요합니다.");
@@ -70,8 +79,6 @@ export const signInWithOAuth = async (provider) => {
   const { data, error } = await supabase.auth.signInWithOAuth({ provider });
   if (error) {
     console.log("로그인에러", error);
-  } else if (data) {
-    localStorage.setItem("isLoggedin", "true");
   }
   return { data, error };
 };
@@ -81,10 +88,7 @@ export const signOut = async () => {
   if (error) {
     console.log(error);
     alert("로그아웃실패");
-    return;
   } else {
-    localStorage.removeItem("isLoggedin");
-    localStorage.removeItem("user");
     alert("로그아웃성공");
   }
 };

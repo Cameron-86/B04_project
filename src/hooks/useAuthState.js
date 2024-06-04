@@ -23,7 +23,7 @@ const useAuthState = () => {
         console.error("session 조회실패", error.message);
       } else if (data && data.session) {
         const user = data.session.user;
-        localStorage.setItem("user", JSON.stringify(user));
+        // localStorage.setItem("user", JSON.stringify(user));
 
         const { data: existingUser, error: selectError } = await supabase
           .from("User")
@@ -45,13 +45,28 @@ const useAuthState = () => {
         }
       }
     };
-
+    const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        console.log(session.user);
+        setIsLoggedin(true);
+        localStorage.setItem("isLoggedin", "true");
+        localStorage.setItem("user", JSON.stringify(session.user));
+        await getSession();
+      } else {
+        setIsLoggedin(false);
+        localStorage.removeItem("user");
+        localStorage.removeItem("isLoggedin");
+      }
+    });
     if (isLoggedin) {
       getSession();
     }
+    return () => {
+      authListener.data.subscription?.unsubscribe();
+    };
   }, [isLoggedin]);
 
-  return { isLoggedin, setIsLoggedin };
+  return { isLoggedin };
 };
 
 export default useAuthState;

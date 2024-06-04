@@ -13,11 +13,10 @@ const Header = () => {
   const { handleAuth } = useAuth(SIGN_OUT);
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state) => state.auth.isModalOpen);
-  const { isLoggedin, setIsLoggedin } = useAuthState();
+  const { isLoggedin } = useAuthState();
 
   const handleSignOut = async () => {
     await handleAuth();
-    setIsLoggedin(false);
   };
 
   return (
