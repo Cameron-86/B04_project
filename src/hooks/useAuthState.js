@@ -4,18 +4,6 @@ import supabase from "../supabase/supabaseClient";
 const useAuthState = () => {
   const [isLoggedin, setIsLoggedin] = useState(() => localStorage.getItem("isLoggedin") === "true");
 
-  // useEffect(() => {
-  //   const handleStorageChange = () => {
-  //     setIsLoggedin(localStorage.getItem("isLoggedin") === "true");
-  //   };
-
-  //   window.addEventListener("storage", handleStorageChange);
-
-  //   return () => {
-  //     window.removeEventListener("storage", handleStorageChange);
-  //   };
-  // }, []);
-
   useEffect(() => {
     const getSessionAndInsert = async () => {
       const { data, error } = await supabase.auth.getSession();
@@ -24,22 +12,24 @@ const useAuthState = () => {
       } else if (data?.session) {
         const user = data.session.user;
 
-        const { data: existingUser, error: selectError } = await supabase
-          .from("User")
-          .select("id")
-          .eq("id", user.id)
-          .single();
+        if (!user.user_metadata.displayName) {
+          const { data: existingUser, error: selectError } = await supabase
+            .from("User")
+            .select("id")
+            .eq("id", user.id)
+            .single();
 
-        if (!existingUser) {
-          const { error: insertError } = await supabase.from("User").insert({
-            id: user.id,
-            email: user.email,
-            nickname: user.email.split("@")[0],
-            user_name: user.email.split("@")[0],
-          });
+          if (!existingUser) {
+            const { error: insertError } = await supabase.from("User").insert({
+              id: user.id,
+              email: user.email,
+              nickname: user.email.split("@")[0],
+              user_name: user.email.split("@")[0],
+            });
 
-          if (insertError) {
-            console.error("insert 에러", insertError.message);
+            if (insertError) {
+              console.error("insert 에러", insertError.message);
+            }
           }
         }
       }
@@ -62,7 +52,7 @@ const useAuthState = () => {
     return () => authListener.subscription.unsubscribe();
   }, [isLoggedin]);
 
-  return { isLoggedin, setIsLoggedin };
+  return { isLoggedin };
 };
 
 export default useAuthState;
