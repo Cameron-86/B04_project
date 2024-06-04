@@ -9,6 +9,7 @@ import FakeArticle from "../../api/FakeArticle";
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortByViews, setSortByViews] = useState(false);
 
   // 검색 처리 함수
   const handleSearch = (query) => {
@@ -27,6 +28,11 @@ const HomePage = () => {
   // 스크롤을 최상단으로 이동하는 함수
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // 인기 글 버튼 클릭 핸들러
+  const handleSortByViews = () => {
+    setSortByViews(true);
   };
 
   return (
@@ -50,10 +56,9 @@ const HomePage = () => {
 
       <StCommunity>
         <div className="search-MiddleContainer">
-          <button>최신 글</button>
-          <button>인기 글</button>
+          <button onClick={handleSortByViews}>인기 글</button>
         </div>
-        <FakeArticle searchQuery={searchQuery} />
+        <FakeArticle searchQuery={searchQuery} sortByViews={sortByViews} />
       </StCommunity>
 
       <StMoveTop onClick={handleScrollToTop}>

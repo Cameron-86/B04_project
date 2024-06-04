@@ -3,7 +3,7 @@ import styled from "styled-components";
 import useFind from "../hooks/useFind";
 import supabase from "./../supabase/supabaseClient";
 
-const FakeArticle = ({ searchQuery }) => {
+const FakeArticle = ({ searchQuery, sortByViews }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -22,11 +22,12 @@ const FakeArticle = ({ searchQuery }) => {
   }, []);
 
   const filteredData = useFind(data, searchQuery); // useSearch 함수 사용
+  const sortedData = sortByViews ? filteredData.sort((a, b) => b.views - a.views) : filteredData;
 
   return (
     <StFetchList>
-      {filteredData.length > 0 ? (
-        filteredData.map((item) => (
+      {sortedData.length > 0 ? (
+        sortedData.map((item) => (
           <StCard key={item.id}>
             <h2>{item.title}</h2>
             {item.image_url && <img src={item.image_url} alt={item.title} />}
