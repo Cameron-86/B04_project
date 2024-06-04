@@ -4,26 +4,25 @@ import supabase from "../supabase/supabaseClient";
 const useAuthState = () => {
   const [isLoggedin, setIsLoggedin] = useState(() => localStorage.getItem("isLoggedin") === "true");
 
+  // useEffect(() => {
+  //   const handleStorageChange = () => {
+  //     setIsLoggedin(localStorage.getItem("isLoggedin") === "true");
+  //   };
+
+  //   window.addEventListener("storage", handleStorageChange);
+
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []);
+
   useEffect(() => {
-    const handleStorageChange = () => {
-      setIsLoggedin(localStorage.getItem("isLoggedin") === "true");
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
-  useEffect(() => {
-    const getSession = async () => {
+    const getSessionAndInsert = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (error) {
         console.error("session 조회실패", error.message);
-      } else if (data && data.session) {
+      } else if (data?.session) {
         const user = data.session.user;
-        // localStorage.setItem("user", JSON.stringify(user));
 
         const { data: existingUser, error: selectError } = await supabase
           .from("User")
@@ -45,28 +44,25 @@ const useAuthState = () => {
         }
       }
     };
-    const authListener = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session) {
-        console.log(session.user);
         setIsLoggedin(true);
         localStorage.setItem("isLoggedin", "true");
         localStorage.setItem("user", JSON.stringify(session.user));
-        await getSession();
+        await getSessionAndInsert();
       } else {
-        setIsLoggedin(false);
-        localStorage.removeItem("user");
         localStorage.removeItem("isLoggedin");
+        localStorage.removeItem("user");
+        setIsLoggedin(false);
       }
     });
     if (isLoggedin) {
-      getSession();
+      getSessionAndInsert();
     }
-    return () => {
-      authListener.data.subscription?.unsubscribe();
-    };
+    return () => authListener.subscription.unsubscribe();
   }, [isLoggedin]);
 
-  return { isLoggedin };
+  return { isLoggedin, setIsLoggedin };
 };
 
 export default useAuthState;

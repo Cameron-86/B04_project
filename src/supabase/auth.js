@@ -21,6 +21,7 @@ export const signUp = async (email, password, nickname) => {
 
   const { data: existingUser, error: selectError } = await supabase.from("User").select("id").eq("id", userId).single();
 
+  // PGRST116 는 테이블의 column이 0개일때 나타나는 에러
   if (selectError && selectError.code !== "PGRST116") {
     console.log("사용자 정보 조회 에러", selectError.message);
     return;
@@ -70,7 +71,6 @@ export const signInWithEmail = async (email, password) => {
     return { user: null, error: new Error("로그인 실패: 데이터를 받지 못했습니다.") };
   }
 
-  localStorage.setItem("isLoggedin", "true");
   alert("로그인 성공");
   return { user: authData.user, error: null };
 };
@@ -84,7 +84,10 @@ export const signInWithOAuth = async (provider) => {
 };
 
 export const signOut = async () => {
-  const { data, error } = await supabase.auth.signOut();
+  console.log("사인아웃 실행됨!");
+  const { error } = await supabase.auth.signOut();
+  alert("asd");
+  console.log("사인아웃 끝남!");
   if (error) {
     console.log(error);
     alert("로그아웃실패");

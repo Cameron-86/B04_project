@@ -11,7 +11,9 @@ const useAuth = (action) => {
     } else if (action === EMAIL_SIGN_IN) {
       await signInWithEmail(credentials.email, credentials.password);
     } else if (action === SIGN_OUT) {
+      console.log("핸들어스가 실행은 됨");
       await signOut();
+      console.log("핸들어스가 리턴을 했음!");
     } else if (action === OAUTH) {
       await signInWithOAuth(provider);
     }
