@@ -84,6 +84,10 @@ export const StForm = styled.form`
     border-bottom: 1px solid black;
     margin-top: 2rem;
     padding: 0.5rem 1rem;
+    transition: all 250ms ease-in;
+    &:focus {
+      border-color: var(--color-red-30);
+    }
   }
 
   button {
