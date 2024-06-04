@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useFind from "../hooks/useFind";
-import supabase from "../supabaseClient";
+import supabase from "./../supabase/supabaseClient";
 
 const FakeArticle = ({ searchQuery }) => {
   const [data, setData] = useState([]);

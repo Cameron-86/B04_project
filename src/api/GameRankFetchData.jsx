@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useFind from "../hooks/useFind"; // useSearch로 이름 지은 훅이 임포트시에 에러나서 바꿨습니다 //
-import supabase from "../supabaseClient";
-
+import supabase from "../supabase/supabaseClient";
 import Pagination from "./../components/Pagination";
 
 const GameRankFetchData = ({ searchQuery }) => {
