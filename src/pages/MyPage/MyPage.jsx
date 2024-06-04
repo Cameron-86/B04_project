@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import supabase from "../../supabase/supabaseClient";
+import MyPageModal from "./MyPageModal";
 
 const MyPage = () => {
-  // 윗쪽에 홈 로고있는 헤더 있다는 가정 하에 아랫 부분만 작성
-  // 로그인 시 현재 로그인한 유저의 id가 전역 상태로 저장 되어 있어야 편할듯 일단 임시방편으로 하드코딩 사용
-  const loginUserId = "테스트 1";
-  // if (loginUserId) {아래} else { 로그인 해주세요 }
+  const loginUserId = JSON.parse(localStorage.getItem("user")).id;
+  const [openProfileEditor, setOpenProfileEditor] = useState(false);
   const [loginUserInfo, setLoginUserInfo] = useState([]);
+  const [loginUserPosts, setLoginUserPosts] = useState([]);
+
   useEffect(() => {
     const fetchLoginUserData = async () => {
       const { data, error } = await supabase.from("User").select("*").eq("id", loginUserId);
@@ -14,73 +15,33 @@ const MyPage = () => {
         console.log(error);
       } else {
         setLoginUserInfo(data[0]);
-        console.log(loginUserInfo);
+        console.log(data[0]);
       }
     };
     fetchLoginUserData();
   }, []);
 
-  const [loginUserPosts, setLoginUserPosts] = useState([]);
   useEffect(() => {
     const fetchLoginUserPostData = async () => {
       const { data, error } = await supabase.from("post").select("*").eq("user_id", loginUserId);
       if (error) {
         console.log(error);
       } else {
-        console.log(data);
         setLoginUserPosts(data);
+        console.log(data);
       }
     };
     fetchLoginUserPostData();
   }, []);
 
-  const handleEditUserProfile = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const nickname = formData.get("nickname");
-    const password = formData.get("password");
-    const introduction = formData.get("introduction");
-    const updateUserProfile = async () => {
-      const { data, error } = await supabase
-        .from("User")
-        .update({
-          nickname,
-          password,
-          introduction,
-        })
-        .eq("id", loginUserId);
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-      }
-    };
-    updateUserProfile();
-    event.target.reset();
-  };
-
-  const handleDeletUser = () => {
-    if (confirm("정말 탈퇴하시겠습니까?")) {
-      deletUser();
-    }
-    const deletUser = async () => {
-      const { data, error } = await supabase.from("User").delete().eq("id", loginUserId);
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-      }
-    };
-  };
-
   return (
     <>
-      <h3>마이페이지입니다.</h3>
+      {/* 로그인 된 상태라면 ? 아래꺼 컴포넌트화 : alert로그인해주세요 후 홈으로 이동 > 로그인 모달 오픈 */}
       <div style={{ border: "1px solid black", width: "250px", padding: "30px" }}>
         <div>
           <h4>닉네임: {loginUserInfo.nickname}</h4>
           <p>자기소개: {loginUserInfo.introduction}</p>
-          <button>프로필 수정</button>
+          <button onClick={() => setOpenProfileEditor(true)}>프로필 수정</button>
         </div>
       </div>
       <div>팔로잉 명 수 </div>
@@ -94,23 +55,24 @@ const MyPage = () => {
           );
         })}
       </ul>
-      {/* modal */}
-      <div>
-        <button>X</button>
-        <form onSubmit={handleEditUserProfile}>
-          <p>닉네임:</p>
-          <input type="text" defaultValue={loginUserInfo.nickname} name="nickname" />
-          <p>비밀번호:</p>
-          <input type="text" defaultValue={loginUserInfo.password} name="password" />
-          <p>자기소개:</p>
-          <input type="text" defaultValue={loginUserInfo.introduction} name="introduction" />
-        </form>
-        <button onClick={handleDeletUser}>회원탈퇴</button>
-        <button type="submit">수정</button>
-      </div>
+      {openProfileEditor && (
+        <MyPageModal
+          loginUserId={loginUserId}
+          loginUserInfo={loginUserInfo}
+          setOpenProfileEditor={setOpenProfileEditor}
+        />
+      )}
     </>
   );
 };
 
 export default MyPage;
-//style={{ display: "none" }}
+
+/*
+1. 로그 아웃 기능 이쪽에서도 사용할 수 있게 전역 설정 필요
+2. 로그인 시 바로 localstorage에 user: id 들어가게 해주길 (한박자 늦음)
+3. 회원탈퇴할 때 게시글까지 지우는지 여부
+4. 모달이 자동으로 닫히고 수정한 값이 보이게 되어서
+  수정하고 새로고침 되려는 form default 안막았는데 역시 새로고침은 피하는게 맞을지
+5.header.jsx에 안쓰는 import 여러개 보여서 다음 pr하는 사람이 없애고 pr 올려도 무방한지
+*/

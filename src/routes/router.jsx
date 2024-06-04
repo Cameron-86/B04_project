@@ -18,6 +18,10 @@ const router = createBrowserRouter([
         path: "/detail/:id",
         element: <DetailPage />,
       },
+      {
+        path: "/mypage",
+        element: <MyPage />,
+      },
     ],
   },
   {
