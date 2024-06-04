@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import useSearch from "../hooks/useSearch";
 import supabase from "../supabaseClient";
 
-const FakeArticle = () => {
+const FakeArticle = ({ searchQuery }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -21,13 +21,15 @@ const FakeArticle = () => {
     fetchData();
   }, []);
 
+  const filteredData = useSearch(data, searchQuery); // useSearch 함수 사용
+
   return (
     <StFetchList>
-      {data.length > 0 ? (
-        data.map((item) => (
+      {filteredData.length > 0 ? (
+        filteredData.map((item) => (
           <StCard key={item.id}>
             <h2>{item.title}</h2>
-            {item.img_url && <img src={item.img_url} alt={item.title} />}
+            {item.image_url && <img src={item.image_url} alt={item.title} />}
             <h3>{item.description}</h3>
           </StCard>
         ))
@@ -48,7 +50,7 @@ const StFetchList = styled.div`
   gap: 20px;
   justify-content: center;
   padding: 20px;
-  width: 100%; /* 부모 stcommunity와 넓이 맞추기 위해 */
+  width: 100%;
 `;
 
 const StCard = styled.div`
@@ -56,7 +58,7 @@ const StCard = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 500px; /* 카드 너비를 고정 */
+  width: 500px;
   box-sizing: border-box;
   text-align: left;
   overflow: hidden;
@@ -66,7 +68,7 @@ const StCard = styled.div`
   position: relative;
 
   &:nth-child(odd) {
-    margin-top: 50px; /* 홀수번째 카드는 50px 아래로 */
+    margin-top: 50px;
   }
 
   img {

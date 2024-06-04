@@ -53,7 +53,7 @@ const HomePage = () => {
           <button>최신 글</button>
           <button>인기 글</button>
         </div>
-        <FakeArticle />
+        <FakeArticle searchQuery={searchQuery} />
       </StCommunity>
 
       <StMoveTop onClick={handleScrollToTop}>

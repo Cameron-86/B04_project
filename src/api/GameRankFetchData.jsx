@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import supabase from "../supabaseClient";
 import useSearch from "./../hooks/useSearch";
+
+import Pagination from "./../components/Pagination";
 
 const GameRankFetchData = ({ searchQuery }) => {
   const [games, setGames] = useState([]);
@@ -15,7 +16,7 @@ const GameRankFetchData = ({ searchQuery }) => {
       const { data, error } = await supabase
         .from("Test_best100game")
         .select("*")
-        .order("created_at", { ascending: true }); // 업로드된 순서대로 정렬
+        .order("created_at", { ascending: true });
       if (error) {
         console.error("Error fetching data: ", error);
       } else {
@@ -28,27 +29,15 @@ const GameRankFetchData = ({ searchQuery }) => {
   }, []);
 
   const filteredGames = useSearch(games, searchQuery);
+  const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -65,31 +54,13 @@ const GameRankFetchData = ({ searchQuery }) => {
               {showRank && <Rank>{indexOfFirstItem + index + 1}</Rank>}
               {game.image_url && <img src={game.image_url} alt={game.title} />}
               <h2>{game.title}</h2>
-
-              {/* game.genre는 검색에만 사용되고 화면에는 보이지 않음 */}
             </StGameCard>
           ))
         ) : (
           <div>No games found</div>
         )}
       </StFetchGameList>
-      <Pagination>
-        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-          &lt;
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          &gt;
-        </button>
-      </Pagination>
+      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </StContainer>
   );
 };
@@ -159,39 +130,4 @@ const Rank = styled.div`
   text-shadow: 0px 0px 20px #000000;
   font-weight: bold;
   letter-spacing: -1.2px;
-
-  /* position: absolute;
-  top: -5px; 카드 바깥으로 약간 벗어남
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 3rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 4px #000000; 검은색 외곽선 효과 */
-`;
-
-const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-  button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ffbf00;
-    color: white;
-    cursor: pointer;
-
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-
-    &.active {
-      background-color: #e6b800;
-    }
-
-    &:hover:not(:disabled):not(.active) {
-      background-color: #e6b800;
-    }
-  }
 `;

@@ -24,7 +24,6 @@ const SearchTopContainer = ({ onSearch }) => {
 
 export default SearchTopContainer;
 
-// 스타일드 컴포넌트 정의
 const StSearchContainer = styled.div`
   display: flex;
   gap: 10px;
