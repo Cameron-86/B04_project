@@ -35,7 +35,7 @@ const StSearchContainer = styled.div`
     height: 48px;
     width: 100%;
     box-sizing: border-box;
-    font-size: 1.5rem; /* 15px */
+    font-size: 15px;
     outline: none;
   }
 
@@ -47,7 +47,7 @@ const StSearchContainer = styled.div`
     color: #ffffff;
     cursor: pointer;
     flex-shrink: 0;
-    font-size: 1.5rem; /* 15px */
+    font-size: 15px;
     font-weight: bold;
     transition: 0.4s;
 

@@ -105,7 +105,7 @@ const StGameCard = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #ffffff;
-    font-size: 2rem; /* 20px */
+    font-size: 20px;
     margin-top: 12px;
     font-weight: bold;
   }
@@ -125,7 +125,7 @@ const Rank = styled.div`
   position: absolute;
   top: 5px;
   left: 3px;
-  font-size: 3rem; /* 30px */
+  font-size: 30px;
   color: #ffffff;
   text-shadow: 0px 0px 20px #000000;
   font-weight: bold;
