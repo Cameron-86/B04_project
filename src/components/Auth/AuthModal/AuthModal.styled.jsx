@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StDiv = styled.div`
+export const Backdrop = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +14,16 @@ export const StDiv = styled.div`
 `;
 
 export const StDialog = styled.dialog`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40rem;
+  height: 40rem;
   background-color: white;
   padding: 4rem;
   border-radius: 1.6rem;
+`;
+
+export const Container = styled.div`
+  width: 80%;
 `;

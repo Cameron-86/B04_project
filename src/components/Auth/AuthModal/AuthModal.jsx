@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EmailAuth from "../EmailAuth/EmailAuth";
 import SignInWithOAuth from "../SignInWithOAuth/SignInWithOAuth";
-import { StDialog, StDiv } from "./AuthModal.styled";
+import { Backdrop, Container, StDialog } from "./AuthModal.styled";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../../store/slices/authSlice";
 
@@ -15,12 +15,15 @@ const AuthModal = ({ open }) => {
     }
   };
   return (
-    <StDiv onClick={handleClose}>
+    <Backdrop onClick={handleClose}>
       <StDialog open={open}>
-        <EmailAuth isLoginPage={isLoginPage} togglePage={toggleModalPage} />
-        {isLoginPage && <SignInWithOAuth />}
+        <Container>
+          <EmailAuth isLoginPage={isLoginPage} togglePage={toggleModalPage} />
+          {isLoginPage && <SignInWithOAuth />}
+          <span onClick={toggleModalPage}>{isLoginPage ? "회원가입 하러가기" : "로그인 하러가기"}</span>
+        </Container>
       </StDialog>
-    </StDiv>
+    </Backdrop>
   );
 };
 
