@@ -30,7 +30,6 @@ const MyPageModal = ({ loginUserId, loginUserInfo, setOpenProfileEditor }) => {
     console.log(loginUserInfo);
   };
 
-  // 잠깐 이거 게시물까지 지워야하나?
   const handleDeletUser = () => {
     const deletUser = async () => {
       const { data, error } = await supabase.from("User").delete().eq("id", loginUserId);
@@ -42,7 +41,7 @@ const MyPageModal = ({ loginUserId, loginUserInfo, setOpenProfileEditor }) => {
     };
     if (confirm("정말 탈퇴하시겠습니까?")) {
       deletUser();
-      // 로그아웃
+      localStorage.clear();
       nav("/");
     }
   };

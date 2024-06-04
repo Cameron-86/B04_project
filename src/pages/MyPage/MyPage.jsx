@@ -14,7 +14,7 @@ const MyPage = () => {
       if (error) {
         console.log(error);
       } else {
-        setLoginUserInfo(data[0]);
+        setLoginUserInfo(data[0]); // 여기서 리듀서 함수
         console.log(data[0]);
       }
     };
