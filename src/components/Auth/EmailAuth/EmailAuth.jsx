@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { validateCredentials } from "../../../utils/validation";
 import useAuth from "../../../hooks/useAuth";
 import { EMAIL_SIGN_IN, EMAIL_SIGN_UP } from "../../../constants/constants";
-import { StForm, Title } from "./EmailAuth.styled";
+import styled from "styled-components";
 
 const initialCredentials = { email: "", password: "", nickname: "" };
 
@@ -37,10 +37,29 @@ const EmailAuth = ({ isLoginPage }) => {
 
   return (
     <StForm onSubmit={handleSubmit}>
-      <Title>{isLoginPage ? "로그인" : "회원가입"}</Title>
-      <input name="email" type="email" value={credentials.email} onChange={handleInputChange} />
-      <input name="password" type="password" value={credentials.password} onChange={handleInputChange} />
-      {!isLoginPage && <input name="nickname" type="text" value={credentials.nickname} onChange={handleInputChange} />}
+      <input
+        placeholder="이메일을 입력해주세요."
+        name="email"
+        type="email"
+        value={credentials.email}
+        onChange={handleInputChange}
+      />
+      <input
+        placeholder="비밀번호를 입력해주세요."
+        name="password"
+        type="password"
+        value={credentials.password}
+        onChange={handleInputChange}
+      />
+      {!isLoginPage && (
+        <input
+          placeholder="닉네임을 입력해주세요."
+          name="nickname"
+          type="text"
+          value={credentials.nickname}
+          onChange={handleInputChange}
+        />
+      )}
       <button type="submit">{isLoginPage ? "로그인" : "회원가입"}</button>
       {errorMessage && <span>{errorMessage}</span>}
     </StForm>
@@ -48,3 +67,30 @@ const EmailAuth = ({ isLoginPage }) => {
 };
 
 export default EmailAuth;
+
+export const StForm = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+
+  input {
+    font-size: 1.8rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid black;
+    margin-top: 2rem;
+  }
+
+  button {
+    font-size: 1.8rem;
+    font-weight: 500;
+    width: 80%;
+    height: 4.5rem;
+    border-radius: 1rem;
+    border: none;
+    margin-top: 1rem;
+  }
+`;
