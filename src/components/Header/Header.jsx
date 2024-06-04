@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../store/slices/authSlice";
 import AuthModal from "../Auth/AuthModal/AuthModal";
-import { StHeader } from "./Header.styled";
 import useAuth from "../../hooks/useAuth";
 import { SIGN_OUT } from "../../constants/constants";
-import supabase from "../../supabase/supabaseClient";
-import { useNavigate } from "react-router-dom";
 import useAuthState from "../../hooks/useAuthState";
+import styled from "styled-components";
+import SearchForm from "./SearchForm";
+import Navbar from "./Navbar";
 
 const Header = () => {
   const { handleAuth } = useAuth(SIGN_OUT);
@@ -21,12 +20,33 @@ const Header = () => {
   };
 
   return (
-    <StHeader>
-      {!isLoggedin && <button onClick={() => dispatch(openModal())}>Login</button>}
+    <Header>
+      <Container>
+        <h1>LOGO</h1>
+        <SearchForm />
+        <Navbar />
+        {/* {!isLoggedin && <button onClick={() => dispatch(openModal())}>Login</button>}
       {isLoggedin && <button onClick={handleSignOut}>Logout</button>}
-      {isModalOpen && <AuthModal open={isModalOpen} />}
-    </StHeader>
+      {isModalOpen && <AuthModal open={isModalOpen} />} */}
+      </Container>
+    </Header>
   );
 };
 
 export default Header;
+
+export const StHeader = styled.header`
+  display: flex;
+  justify-content: center;
+  width: 100vh;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1320px;
+  height: 68px;
+  background-color: beige;
+`;
