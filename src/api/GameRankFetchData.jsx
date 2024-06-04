@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Modal from "../components/modal";
 import useFind from "../hooks/useFind"; // useSearch로 이름 지은 훅이 임포트시에 에러나서 바꿨습니다 //
 import supabase from "../supabase/supabaseClient";
 import Pagination from "./../components/Pagination";
@@ -8,6 +9,7 @@ const GameRankFetchData = ({ searchQuery }) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedGame, setSelectedGame] = useState(null); // modal 선택된 게임 상태 추가 //
   const itemsPerPage = 4;
 
   useEffect(() => {
@@ -38,6 +40,14 @@ const GameRankFetchData = ({ searchQuery }) => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
 
+  const openModal = (game) => {
+    setSelectedGame(game);
+  };
+
+  const closeModal = () => {
+    setSelectedGame(null);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -49,7 +59,9 @@ const GameRankFetchData = ({ searchQuery }) => {
       <StFetchGameList>
         {currentItems.length > 0 ? (
           currentItems.map((game, index) => (
-            <StGameCard key={game.id}>
+            <StGameCard key={game.id} onClick={() => openModal(game)}>
+              {" "}
+              {/* 클릭 이벤트 추가 */}
               {showRank && <Rank>{indexOfFirstItem + index + 1}</Rank>}
               {game.image_url && <img src={game.image_url} alt={game.title} />}
               <h2>{game.title}</h2>
@@ -60,6 +72,7 @@ const GameRankFetchData = ({ searchQuery }) => {
         )}
       </StFetchGameList>
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+      {selectedGame && <Modal onClose={closeModal} data={selectedGame} />} {/* 모달 표시 */}
     </StContainer>
   );
 };
