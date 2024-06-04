@@ -59,7 +59,7 @@ export const StHeader = styled.header`
       color: #ffffff;
       cursor: pointer;
       height: 48px;
-      font-size: 15px;
+      font-size: 1.5rem; /* 15px */
       font-weight: bold;
       transition: 0.4s;
 
@@ -103,7 +103,7 @@ export const StCommunity = styled.div`
 
   button {
     height: 48px;
-    font-size: 15px;
+    font-size: 1.5rem; /* 15px */
     font-weight: bold;
     margin-left: 20px;
     padding: 5px 25px;

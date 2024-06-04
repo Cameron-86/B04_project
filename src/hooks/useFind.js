@@ -1,4 +1,4 @@
-const useSearch = (data, searchQuery) => {
+const useFind = (data, searchQuery) => {
   if (!data || !searchQuery) {
     return data;
   }
@@ -13,7 +13,7 @@ const useSearch = (data, searchQuery) => {
   });
 };
 
-export default useSearch;
+export default useFind;
 
 // import { useEffect, useState } from "react";
 

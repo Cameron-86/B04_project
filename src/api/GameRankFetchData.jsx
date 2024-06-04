@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import useFind from "../hooks/useFind"; // useSearch로 이름 지은 훅이 임포트시에 에러나서 바꿨습니다 //
 import supabase from "../supabaseClient";
-import useSearch from "./../hooks/useSearch";
 
 import Pagination from "./../components/Pagination";
 
@@ -28,7 +28,7 @@ const GameRankFetchData = ({ searchQuery }) => {
     fetchData();
   }, []);
 
-  const filteredGames = useSearch(games, searchQuery);
+  const filteredGames = useFind(games, searchQuery);
   const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
 
   const handlePageChange = (page) => {
@@ -105,7 +105,7 @@ const StGameCard = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 2rem; /* 20px */
     margin-top: 12px;
     font-weight: bold;
   }
@@ -125,7 +125,7 @@ const Rank = styled.div`
   position: absolute;
   top: 5px;
   left: 3px;
-  font-size: 30px;
+  font-size: 3rem; /* 30px */
   color: #ffffff;
   text-shadow: 0px 0px 20px #000000;
   font-weight: bold;

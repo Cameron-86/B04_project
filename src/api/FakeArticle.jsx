@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import useSearch from "../hooks/useSearch";
+import useFind from "../hooks/useFind";
 import supabase from "../supabaseClient";
 
 const FakeArticle = ({ searchQuery }) => {
@@ -21,7 +21,7 @@ const FakeArticle = ({ searchQuery }) => {
     fetchData();
   }, []);
 
-  const filteredData = useSearch(data, searchQuery); // useSearch 함수 사용
+  const filteredData = useFind(data, searchQuery); // useSearch 함수 사용
 
   return (
     <StFetchList>
@@ -58,7 +58,7 @@ const StCard = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 500px;
+  width: 300px;
   box-sizing: border-box;
   text-align: left;
   overflow: hidden;
