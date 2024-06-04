@@ -49,7 +49,7 @@ export const StDialog = styled.dialog`
   align-items: center;
   flex-direction: column;
   width: 40rem;
-  height: 30rem;
+  height: 32rem;
   background-color: white;
   padding: 4rem;
   border-radius: 1.6rem;
@@ -70,6 +70,7 @@ export const Title = styled.h3`
 `;
 
 const StBtn = styled.button`
+  font-size: 1.4rem;
   bottom: 1rem;
   right: 1rem;
   font-weight: 500;

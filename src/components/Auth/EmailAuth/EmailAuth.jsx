@@ -33,6 +33,7 @@ const EmailAuth = ({ isLoginPage }) => {
 
   useEffect(() => {
     setCredentials(initialCredentials);
+    setErrorMessage("");
   }, [isLoginPage]);
 
   return (
@@ -82,6 +83,7 @@ export const StForm = styled.form`
     outline: none;
     border-bottom: 1px solid black;
     margin-top: 2rem;
+    padding: 0.5rem 1rem;
   }
 
   button {
@@ -92,5 +94,12 @@ export const StForm = styled.form`
     border-radius: 1rem;
     border: none;
     margin-top: 1rem;
+  }
+
+  span {
+    font-size: 1.4rem;
+    position: absolute;
+    bottom: 1rem;
+    left: 2rem;
   }
 `;
