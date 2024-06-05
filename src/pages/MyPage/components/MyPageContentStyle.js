@@ -57,10 +57,13 @@ export const PostsSection = styled.ul`
 
 export const StLi = styled.li`
   width: 80%;
+  height: 10.6rem;
+  overflow: hidden;
   border: 1px solid var(--black);
   border-radius: 17px;
   margin: 1rem;
   padding: 2rem 2.8rem;
+  cursor: pointer;
   h4 {
   }
   p {
@@ -69,12 +72,3 @@ export const StLi = styled.li`
     font-size: 1.8rem;
   }
 `;
-
-/*
-div.line {
-    background: var(#e9ecef);
-    
-  }
-
- 
- */

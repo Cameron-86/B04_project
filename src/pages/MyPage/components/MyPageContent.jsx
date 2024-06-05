@@ -4,6 +4,7 @@ import { Container, Line, PostsSection, StDiv, StLi, UserInfoSection } from "./M
 const MyPageContent = ({ setIsEditModalOpen }) => {
   const loginUserInfo = useSelector((state) => state.loginUser.loginUserInfo);
   const loginUserPosts = useSelector((state) => state.loginUser.loginUserPosts);
+
   return (
     <Container>
       <UserInfoSection>
@@ -18,8 +19,10 @@ const MyPageContent = ({ setIsEditModalOpen }) => {
         {loginUserPosts.map((post) => {
           return (
             <StLi key={post.id}>
-              <h4>{post.title}</h4>
-              <p>{post.contents}</p>
+              <div>
+                <h4>{post.title}</h4>
+                <p>{post.contents}</p>
+              </div>
             </StLi>
           );
         })}
