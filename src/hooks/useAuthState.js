@@ -4,7 +4,6 @@ import supabase from "../supabase/supabaseClient";
 const useAuthState = () => {
   const [isLoggedin, setIsLoggedin] = useState(() => localStorage.getItem("isLoggedin") === "true");
   const [user, setUser] = useState();
-  console.log(user);
 
   useEffect(() => {
     const fetchUserById = async (id) => {
@@ -13,6 +12,7 @@ const useAuthState = () => {
         console.error("fetch 에러", error.message);
         return null;
       }
+      console.log(data);
       return data;
     };
 
@@ -43,14 +43,16 @@ const useAuthState = () => {
 
           if (!existingUser) {
             await insertSocialUser(sessionUser);
+            console.log(await fetchUserById(sessionUser.id));
             setUser(await fetchUserById(sessionUser.id));
           }
 
           if (existingUser) {
             setUser(existingUser);
+            console.log(existingUser);
           }
         } else {
-          setUser(sessionUser);
+          setUser(await fetchUserById(sessionUser.id));
         }
       }
     };

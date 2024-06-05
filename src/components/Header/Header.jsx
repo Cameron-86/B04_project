@@ -7,11 +7,10 @@ import { SIGN_OUT } from "../../constants/constants";
 import useAuthState from "../../hooks/useAuthState";
 
 const Header = () => {
-  const { handleAuth, user } = useAuth(SIGN_OUT);
+  const { handleAuth } = useAuth(SIGN_OUT);
   const dispatch = useDispatch();
   const isModalOpen = useSelector((state) => state.auth.isModalOpen);
   const { isLoggedin } = useAuthState();
-
   return (
     <StHeader>
       {!isLoggedin && <button onClick={() => dispatch(openModal())}>Login</button>}
