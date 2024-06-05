@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 // toolkit에서 return x 불변성 관리 안함
 
 const initialState = {
-  loginUserId: JSON.parse(localStorage.getItem("user")) ? JSON.parse(localStorage.getItem("user")).id : null,
   loginUserInfo: {},
   loginUserPosts: [],
 };

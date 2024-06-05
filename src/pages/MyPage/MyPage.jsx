@@ -1,19 +1,23 @@
 import supabase from "../../supabase/supabaseClient";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { openModal } from "../../store/slices/authSlice";
 import { setLoginUserInfo, setLoginUserPosts } from "../../store/slices/loginUserSlice";
 import MyPageContent from "./components/MyPageContent";
 import MyPageModal from "./components/MyPageEditModal";
+import useAuthState from "../../hooks/useAuthState";
+import useFetchAllPosts from "../../hooks/db/useFetchAllPosts";
 
 const MyPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // selector, dispatch 구분
   const navigate = useNavigate();
-  const isLoggedin = localStorage.getItem("isLoggedin");
+  const { isLoggedin, user } = useAuthState();
+  const [loginUserId, setLoginUserId] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const loginUserId = useSelector((state) => state.loginUser.loginUserId); // selector, dispatch 구분
 
+  /// Home에서 & 주소창으로 2가지 버전 둘 다 체크해야하는데///
+  // userId 가져오는 방식에 업뎃이 있을 예정이라 후에 체크
   const goBackLogin = () => {
     alert("로그인이 필요한 기능입니다.");
     navigate("/");
@@ -21,9 +25,8 @@ const MyPage = () => {
   };
 
   useEffect(() => {
-    if (!isLoggedin) {
-      goBackLogin();
-    } else {
+    if (user) {
+      setLoginUserId(user.id);
       const fetchLoginUserData = async () => {
         const { data, error } = await supabase.from("User").select("*").eq("id", loginUserId);
         // 실제 완성본에서는 필요 없어짐
@@ -45,11 +48,13 @@ const MyPage = () => {
       };
       fetchLoginUserPostData();
     }
-  }, []);
+  }, [user]);
+
+  console.log(useFetchAllPosts());
 
   return (
     <>
-      {isLoggedin && <MyPageContent setIsEditModalOpen={setIsEditModalOpen} />}
+      {isLoggedin ? <MyPageContent setIsEditModalOpen={setIsEditModalOpen} /> : goBackLogin()}
       {isEditModalOpen && <MyPageModal setIsEditModalOpen={setIsEditModalOpen} />}
     </>
   );
