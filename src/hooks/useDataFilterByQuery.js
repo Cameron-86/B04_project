@@ -1,5 +1,5 @@
-const useFind = (data, searchQuery) => {
-  if (!data || !searchQuery) {
+const useDataFilterByQuery = (data, searchQuery) => {
+  if (!data || !searchQuery || data.length === 0) {
     return data;
   }
 
@@ -14,7 +14,7 @@ const useFind = (data, searchQuery) => {
   });
 };
 
-export default useFind;
+export default useDataFilterByQuery;
 
 // import { useEffect, useState } from "react";
 

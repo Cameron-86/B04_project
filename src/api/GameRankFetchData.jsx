@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import GameInfoModal from "../components/GameInfoModal";
-import useFind from "../hooks/useFind"; // useSearch로 이름 지은 훅이 임포트시에 에러나서 바꿨습니다 //
+
+import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
+import GameInfoModal from "../pages/HomePage/GameInfoModal";
+import Pagination from "../pages/HomePage/Pagination";
 import supabase from "../supabase/supabaseClient";
-import Pagination from "./../components/Pagination";
 
 const GameRankFetchData = ({ searchQuery }) => {
   const [games, setGames] = useState([]);
@@ -29,7 +30,7 @@ const GameRankFetchData = ({ searchQuery }) => {
     fetchData();
   }, []);
 
-  const filteredGames = useFind(games, searchQuery);
+  const filteredGames = useDataFilterByQuery(games, searchQuery);
   const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
 
   const handlePageChange = (page) => {

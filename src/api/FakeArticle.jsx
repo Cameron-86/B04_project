@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import useFind from "../hooks/useFind";
+
+import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
 import supabase from "./../supabase/supabaseClient";
 
-const FakeArticle = ({ searchQuery, sortByViews }) => {
+const FakeArticle = ({ searchQuery, sortByViews, sortByLatest }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const FakeArticle = ({ searchQuery, sortByViews }) => {
       if (error) {
         console.error("Error fetching data:", error);
       } else {
-        console.log("Data fetched successfully:", data); // 데이터 로깅
+        console.log("Data fetched successfully:", data);
         setData(data);
       }
     };
@@ -21,8 +22,14 @@ const FakeArticle = ({ searchQuery, sortByViews }) => {
     fetchData();
   }, []);
 
-  const filteredData = useFind(data, searchQuery); // useSearch 함수 사용
-  const sortedData = sortByViews ? filteredData.sort((a, b) => b.views - a.views) : filteredData;
+  const filteredData = useDataFilterByQuery(data, searchQuery);
+  let sortedData = filteredData;
+
+  if (sortByViews) {
+    sortedData = sortedData.sort((a, b) => b.views - a.views); // view 조회순 //
+  } else if (sortByLatest) {
+    sortedData = sortedData.sort((a, b) => new Date(b.date) - new Date(a.date)); // 날짜 순 //
+  }
 
   return (
     <StFetchList>
@@ -35,7 +42,7 @@ const FakeArticle = ({ searchQuery, sortByViews }) => {
           </StCard>
         ))
       ) : (
-        <p>No data available</p>
+        <p>글이 없습니다</p>
       )}
     </StFetchList>
   );

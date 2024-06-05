@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 import GameRankFetchData from "../../api/GameRankFetchData";
-import GenreDropdown from "../../components/GenreDropdown";
-import SearchTopContainer from "../../components/SearchTopContainer";
+import GenreDropdown from "./GenreDropdown";
+import SearchTopContainer from "./SearchTopContainer";
 
 import styled from "styled-components";
 import FakeArticle from "../../api/FakeArticle";
@@ -10,6 +10,7 @@ import FakeArticle from "../../api/FakeArticle";
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortByViews, setSortByViews] = useState(false);
+  const [sortByLatest, setSortByLatest] = useState(false);
 
   // 검색 처리 함수
   const handleSearch = (query) => {
@@ -35,11 +36,15 @@ const HomePage = () => {
     setSortByViews(true);
   };
 
+  const handleSortByLatest = () => {
+    setSortByLatest(true);
+  };
+
   return (
     <StMain>
       <StHeader>
         <h1 className="title" onClick={handleScrollToTop}>
-          Gaming<span>Nerd</span>
+          Fak<span>er</span>
         </h1>
         <SearchTopContainer onSearch={handleSearch} />
         <div className="login-buttons">
@@ -56,9 +61,10 @@ const HomePage = () => {
 
       <StCommunity>
         <div className="search-MiddleContainer">
+          <button onClick={handleSortByLatest}>최신 글</button>
           <button onClick={handleSortByViews}>인기 글</button>
         </div>
-        <FakeArticle searchQuery={searchQuery} sortByViews={sortByViews} />
+        <FakeArticle searchQuery={searchQuery} sortByViews={sortByViews} sortByLatest={sortByLatest} />
       </StCommunity>
 
       <StMoveTop onClick={handleScrollToTop}>
@@ -86,7 +92,7 @@ const StHeader = styled.header`
   width: 100%;
   height: 80px;
   background-color: #121212;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px #00000019;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -195,8 +201,8 @@ const StMoveTop = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
+  width: 48px;
+  height: 48px;
   background-color: #f56263;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
