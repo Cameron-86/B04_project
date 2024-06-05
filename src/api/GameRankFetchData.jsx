@@ -1,16 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
 import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
 import GameInfoModal from "../pages/HomePage/GameInfoModal";
 import Pagination from "../pages/HomePage/Pagination";
+import { setCurrentPage, setGames, setLoading, setSelectedGame } from "../store/slices/gameRankSlice";
 import supabase from "../supabase/supabaseClient";
 
 const GameRankFetchData = ({ searchQuery }) => {
-  const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedGame, setSelectedGame] = useState(null); // modal 선택된 게임 상태 추가 //
+  const dispatch = useDispatch();
+  const { games, loading, currentPage, selectedGame } = useSelector((state) => state.gameRank);
   const itemsPerPage = 4;
 
   useEffect(() => {
@@ -22,19 +21,19 @@ const GameRankFetchData = ({ searchQuery }) => {
       if (error) {
         console.error("Error fetching data: ", error);
       } else {
-        setGames(data);
+        dispatch(setGames(data));
+        dispatch(setLoading(false));
       }
-      setLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const filteredGames = useDataFilterByQuery(games, searchQuery);
   const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
 
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    dispatch(setCurrentPage(page));
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -42,11 +41,11 @@ const GameRankFetchData = ({ searchQuery }) => {
   const currentItems = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
 
   const openGameInfoModal = (game) => {
-    setSelectedGame(game);
+    dispatch(setSelectedGame(game));
   };
 
   const closeGameInfoModal = () => {
-    setSelectedGame(null);
+    dispatch(setSelectedGame(null));
   };
 
   if (loading) {
@@ -61,8 +60,6 @@ const GameRankFetchData = ({ searchQuery }) => {
         {currentItems.length > 0 ? (
           currentItems.map((game, index) => (
             <StGameCard key={game.id} onClick={() => openGameInfoModal(game)}>
-              {" "}
-              {/* 클릭 이벤트 추가 */}
               {showRank && <Rank>{indexOfFirstItem + index + 1}</Rank>}
               {game.image_url && <img src={game.image_url} alt={game.title} />}
               <h2>{game.title}</h2>
@@ -73,13 +70,12 @@ const GameRankFetchData = ({ searchQuery }) => {
         )}
       </StFetchGameList>
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-      {selectedGame && <GameInfoModal onClose={closeGameInfoModal} data={selectedGame} />} {/* 모달 표시 */}
+      {selectedGame && <GameInfoModal onClose={closeGameInfoModal} data={selectedGame} />}
     </StContainer>
   );
 };
 
 export default GameRankFetchData;
-
 const StContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
