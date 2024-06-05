@@ -8,7 +8,6 @@ import { setCurrentPage, setGames, setLoading, setSelectedGame } from "../store/
 import supabase from "../supabase/supabaseClient";
 
 const GameRankFetchData = ({ searchQuery }) => {
-  console.log("🚀 ~ GameRankFetchData ~  searchQuery :", searchQuery);
   const dispatch = useDispatch();
   const { games, loading, currentPage, selectedGame } = useSelector((state) => state.gameRank);
   const itemsPerPage = 4;
