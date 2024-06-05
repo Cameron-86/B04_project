@@ -10,6 +10,9 @@ const authSlice = createSlice({
   initialState,
   name: "auth",
   reducers: {
+    setUser: (state, payload) => {
+      state.user = payload;
+    },
     openModal: (state) => {
       state.isModalOpen = true;
     },

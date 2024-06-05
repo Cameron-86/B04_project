@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import supabase from "../supabase/supabaseClient";
+import { useDispatch } from "react-redux";
 
 const useAuthState = () => {
   const [isLoggedin, setIsLoggedin] = useState(() => localStorage.getItem("isLoggedin") === "true");
+  const dispatch = useDispatch();
   const [user, setUser] = useState();
 
   useEffect(() => {
