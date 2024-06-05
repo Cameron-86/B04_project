@@ -7,23 +7,22 @@ import { EMAIL_SIGN_IN, EMAIL_SIGN_UP, OAUTH, SIGN_OUT } from "../constants/cons
 const useAuth = (action) => {
   const dispatch = useDispatch();
 
-  const handleAuth = useCallback(
-    async (credentials = {}, provider) => {
-      if (action === EMAIL_SIGN_UP) {
-        await signUp(credentials.email, credentials.password, credentials.nickname);
-      } else if (action === EMAIL_SIGN_IN) {
-        await signInWithEmail(credentials.email, credentials.password);
-      } else if (action === SIGN_OUT) {
-        console.log("핸들어스가 실행은 됨");
-        await signOut();
-        console.log("핸들어스가 리턴을 했음!");
-      } else if (action === OAUTH) {
-        await signInWithOAuth(provider);
-      }
-      dispatch(closeModal());
-    },
-    [action, dispatch],
-  );
+  const handleAuth = async (credentials = {}, provider) => {
+    if (action === EMAIL_SIGN_UP) {
+      console.log("이메일사인업 함수실행직전");
+      await signUp(credentials.email, credentials.password, credentials.nickname);
+      console.log("이메일사인업 함수실행직후");
+    } else if (action === EMAIL_SIGN_IN) {
+      await signInWithEmail(credentials.email, credentials.password);
+    } else if (action === SIGN_OUT) {
+      console.log("핸들어스가 실행은 됨");
+      await signOut();
+      console.log("핸들어스가 리턴을 했음!");
+    } else if (action === OAUTH) {
+      await signInWithOAuth(provider);
+    }
+    dispatch(closeModal());
+  };
 
   return { handleAuth };
 };

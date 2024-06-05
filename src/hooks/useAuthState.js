@@ -7,7 +7,7 @@ const useAuthState = () => {
 
   useEffect(() => {
     const fetchUserById = async (id) => {
-      const { data, error } = await supabase.from("User").select("*").eq("id", id).single();
+      const { data, error } = await supabase.from("user").select("*").eq("id", id).single();
       if (error) {
         console.error("fetch 에러", error.message);
         return null;
@@ -18,7 +18,7 @@ const useAuthState = () => {
 
     const insertSocialUser = async (user) => {
       const { error } = await supabase
-        .from("User")
+        .from("user")
         .insert({
           id: user.id,
           email: user.email,
