@@ -39,7 +39,7 @@ const useAuthState = () => {
         setIsLoggedin(true);
         localStorage.setItem("isLoggedin", "true");
         localStorage.setItem("user", JSON.stringify(session.user));
-        await getSessionAndInsert();
+        // await getSessionAndInsert();
       } else {
         localStorage.removeItem("isLoggedin");
         localStorage.removeItem("user");
