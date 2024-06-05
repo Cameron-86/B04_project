@@ -8,6 +8,7 @@ import { setCurrentPage, setGames, setLoading, setSelectedGame } from "../store/
 import supabase from "../supabase/supabaseClient";
 
 const GameRankFetchData = ({ searchQuery }) => {
+  console.log("🚀 ~ GameRankFetchData ~  searchQuery :", searchQuery);
   const dispatch = useDispatch();
   const { games, loading, currentPage, selectedGame } = useSelector((state) => state.gameRank);
   const itemsPerPage = 4;
@@ -30,7 +31,7 @@ const GameRankFetchData = ({ searchQuery }) => {
   }, [dispatch]);
 
   const filteredGames = useDataFilterByQuery(games, searchQuery);
-  const totalPages = Math.ceil(filteredGames.length / itemsPerPage);
+  const totalPages = filteredGames.length / itemsPerPage;
 
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
@@ -76,6 +77,7 @@ const GameRankFetchData = ({ searchQuery }) => {
 };
 
 export default GameRankFetchData;
+
 const StContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;

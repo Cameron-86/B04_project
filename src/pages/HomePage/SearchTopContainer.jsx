@@ -8,7 +8,6 @@ const SearchTopContainer = ({ onSearch }) => {
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
-
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
     onSearch(query);

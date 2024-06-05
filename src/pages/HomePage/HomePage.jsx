@@ -1,31 +1,28 @@
-import { useState } from "react";
-
 import GameRankFetchData from "../../api/GameRankFetchData";
 import GenreDropdown from "./GenreDropdown";
 import SearchTopContainer from "./SearchTopContainer";
 
 import styled from "styled-components";
 
+import { useDispatch, useSelector } from "react-redux";
 import UserPosts from "../../api/UserPosts";
+import { setSearchQuery, setSortBy } from "../../store/slices/searchQuerySlice";
 
 const HomePage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState(null);
+  const dispatch = useDispatch();
+  const { searchQuery = "", sortBy = null } = useSelector((state) => state.searchQuery || {});
 
-  // 검색 처리 함수
   const handleSearch = (query) => {
-    setSearchQuery(query);
+    dispatch(setSearchQuery(query));
   };
 
-  // 장르 선택 함수
   const handleGenreSelect = (genre) => {
     if (genre === "전체") {
-      setSearchQuery("");
+      dispatch(setSearchQuery(""));
     } else {
-      setSearchQuery(genre);
+      dispatch(setSearchQuery(genre));
     }
   };
-
   // 스크롤을 최상단으로 이동하는 함수
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -33,13 +30,13 @@ const HomePage = () => {
 
   // 인기 글 버튼 클릭 핸들러
   const handleSortByViews = () => {
-    setSortBy("views");
+    dispatch(setSortBy("views"));
   };
 
   const handleSortByLatest = () => {
-    setSortBy("latest");
+    dispatch(setSortBy("latest"));
   };
-
+  console.log(searchQuery);
   return (
     <StMain>
       <StHeader>
