@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Modal = ({ onClose, data }) => {
+const GameInfoModal = ({ onClose, data }) => {
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
@@ -15,7 +15,7 @@ const Modal = ({ onClose, data }) => {
   );
 };
 
-export default Modal;
+export default GameInfoModal;
 
 const ModalOverlay = styled.div`
   position: fixed;

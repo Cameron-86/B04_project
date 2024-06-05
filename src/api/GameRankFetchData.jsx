@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Modal from "../components/modal";
+import GameInfoModal from "../components/GameInfoModal";
 import useFind from "../hooks/useFind"; // useSearch로 이름 지은 훅이 임포트시에 에러나서 바꿨습니다 //
 import supabase from "../supabase/supabaseClient";
 import Pagination from "./../components/Pagination";
@@ -40,11 +40,11 @@ const GameRankFetchData = ({ searchQuery }) => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
 
-  const openModal = (game) => {
+  const openGameInfoModal = (game) => {
     setSelectedGame(game);
   };
 
-  const closeModal = () => {
+  const closeGameInfoModal = () => {
     setSelectedGame(null);
   };
 
@@ -59,7 +59,7 @@ const GameRankFetchData = ({ searchQuery }) => {
       <StFetchGameList>
         {currentItems.length > 0 ? (
           currentItems.map((game, index) => (
-            <StGameCard key={game.id} onClick={() => openModal(game)}>
+            <StGameCard key={game.id} onClick={() => openGameInfoModal(game)}>
               {" "}
               {/* 클릭 이벤트 추가 */}
               {showRank && <Rank>{indexOfFirstItem + index + 1}</Rank>}
@@ -72,7 +72,7 @@ const GameRankFetchData = ({ searchQuery }) => {
         )}
       </StFetchGameList>
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
-      {selectedGame && <Modal onClose={closeModal} data={selectedGame} />} {/* 모달 표시 */}
+      {selectedGame && <GameInfoModal onClose={closeGameInfoModal} data={selectedGame} />} {/* 모달 표시 */}
     </StContainer>
   );
 };
