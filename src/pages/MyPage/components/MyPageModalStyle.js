@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Modal = styled.div`
-  background-color: white;
+  background-color: var(--white);
   width: 300px;
   height: 190px;
-  border: 1px solid #121212;
+  border: 1px solid var(--black);
   border-radius: 17px;
   position: fixed;
   top: 0;

@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: 8rem auto;
 `;
 export const UserInfoSection = styled.section`
-  border: 1px solid #121212;
+  border: 1px solid var(--black);
   border-radius: 17px;
   display: flex;
   justify-content: space-between;
@@ -17,7 +17,7 @@ export const UserInfoSection = styled.section`
     align-items: end;
     background-color: transparent;
     border: none;
-    color: grey;
+    color: var(--color-black-30);
     font-size: 1.2rem;
     &:hover {
       cursor: pointer;
@@ -42,7 +42,7 @@ export const StDiv = styled.div`
 export const Line = styled.div`
   height: 1px;
   width: 100%;
-  background-color: #121212;
+  background-color: var(--black);
   margin-top: 4rem;
   margin-bottom: 6rem;
 `;
@@ -57,7 +57,7 @@ export const PostsSection = styled.ul`
 
 export const StLi = styled.li`
   width: 80%;
-  border: 1px solid #121212;
+  border: 1px solid var(--black);
   border-radius: 17px;
   margin: 1rem;
   padding: 2rem 2.8rem;
