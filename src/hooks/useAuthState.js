@@ -61,11 +61,11 @@ const useAuthState = () => {
       if (session) {
         setIsLoggedin(true);
         localStorage.setItem("isLoggedin", "true");
-        localStorage.setItem("user", JSON.stringify(session.user));
+        localStorage.setItem("user", JSON.stringify(session.user)); // user 값을 로컬스토리지로 불러오는 부분 로직 변경 후 삭제
         // await getSessionAndHandleUser();
       } else {
         localStorage.removeItem("isLoggedin");
-        localStorage.removeItem("user");
+        localStorage.removeItem("user"); // user 값을 로컬스토리지로 불러오는 부분 로직 변경 후 삭제
         setIsLoggedin(false);
         setUser(null);
       }
