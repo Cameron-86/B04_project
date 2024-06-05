@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout/Layout";
 import DetailPage from "../pages/DetailPage/DetailPage";
 import HomePage from "../pages/HomePage/HomePage";
+import FeedPage from "../pages/FeedPage/FeedPage";
 import NewPost from "../pages/NewPost/NewPost";
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
         // path는 /닉네임/id로 구성될 예정
         path: "/detail/:id",
         element: <DetailPage />,
+      },
+      {
+        path: "/feed", // FeedPage 경로 추가
+        element: <FeedPage />,
       },
     ],
   },
