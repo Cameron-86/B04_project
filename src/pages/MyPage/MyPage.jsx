@@ -1,11 +1,11 @@
 import supabase from "../../supabase/supabaseClient";
-import MyPageModal from "./MyPageEditModal";
-import MyPageContent from "./MyPageContent";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { openModal } from "../../store/slices/authSlice";
 import { setLoginUserInfo, setLoginUserPosts } from "../../store/slices/loginUserSlice";
+import MyPageContent from "./components/MyPageContent";
+import MyPageModal from "./components/MyPageEditModal";
 
 const MyPage = () => {
   const dispatch = useDispatch();

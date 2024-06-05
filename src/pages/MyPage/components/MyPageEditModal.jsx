@@ -1,8 +1,8 @@
-import supabase from "../../supabase/supabaseClient";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoginUserInfo } from "../../store/slices/loginUserSlice";
-import { StDiv } from "./MyPageStyle";
+import { useNavigate } from "react-router-dom";
+import supabase from "../../../supabase/supabaseClient";
+import { setLoginUserInfo } from "../../../store/slices/loginUserSlice";
+import { BtnWrapper, CloseBtn, Modal, StForm } from "./MyPageModalStyle";
 
 const MyPageModal = ({ setIsEditModalOpen }) => {
   const navigate = useNavigate();
@@ -60,11 +60,9 @@ const MyPageModal = ({ setIsEditModalOpen }) => {
   };
 
   return (
-    <StDiv>
-      <button className="xbtn" onClick={() => setIsEditModalOpen(false)}>
-        X
-      </button>
-      <form onSubmit={handleEditUserProfile}>
+    <Modal>
+      <CloseBtn onClick={() => setIsEditModalOpen(false)}>X</CloseBtn>
+      <StForm onSubmit={handleEditUserProfile}>
         <div>
           <p>닉네임:</p>
           <input type="text" defaultValue={loginUserInfo.nickname} name="nickname" />
@@ -77,12 +75,12 @@ const MyPageModal = ({ setIsEditModalOpen }) => {
           <p>자기소개:</p>
           <input type="text" defaultValue={loginUserInfo.introduction} name="introduction" />
         </div>
-        <div className="btns">
-          <button type="submit">수정</button>
+        <BtnWrapper>
           <button onClick={handleDeletUser}>회원탈퇴</button>
-        </div>
-      </form>
-    </StDiv>
+          <button type="submit">수정</button>
+        </BtnWrapper>
+      </StForm>
+    </Modal>
   );
 };
 
