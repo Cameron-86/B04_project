@@ -1,8 +1,8 @@
 import { useState } from "react";
-import EmailAuth from "../EmailAuth/EmailAuth";
-import SignInWithOAuth from "../SignInWithOAuth/SignInWithOAuth";
+import EmailAuth from "./EmailAuth";
+import SignInWithOAuth from "./SignInWithOAuth";
 import { useDispatch } from "react-redux";
-import { closeModal } from "../../../store/slices/authSlice";
+import { closeModal } from "../../store/slices/authSlice";
 import styled from "styled-components";
 
 const AuthModal = ({ open }) => {
@@ -20,8 +20,8 @@ const AuthModal = ({ open }) => {
         <Container>
           <Title>{isLoginPage ? "로그인" : "회원가입"}</Title>
           <EmailAuth isLoginPage={isLoginPage} togglePage={toggleModalPage} />
+          <StBtn onClick={toggleModalPage}>{isLoginPage ? "이미 회원이신가요?" : "계정이 없으신가요?"}</StBtn>
           {isLoginPage && <SignInWithOAuth />}
-          <StBtn onClick={toggleModalPage}>{isLoginPage ? "회원가입 하러가기" : "로그인 하러가기"}</StBtn>
         </Container>
       </StDialog>
     </Backdrop>
@@ -30,7 +30,7 @@ const AuthModal = ({ open }) => {
 
 export default AuthModal;
 
-export const Backdrop = styled.div`
+const Backdrop = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,42 +39,47 @@ export const Backdrop = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-export const StDialog = styled.dialog`
+const StDialog = styled.dialog`
   position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
-  width: 40rem;
-  height: 32rem;
-  background-color: white;
-  padding: 4rem;
-  border-radius: 1.6rem;
+  width: 400px;
+  height: 320px;
+  background-color: var(--color-black-50);
+  padding: 40px;
+  border-radius: 16px;
   border: none;
+  z-index: 1000;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 `;
 
-export const Container = styled.div`
+const Container = styled.div`
   width: 90%;
+  display: flex;
+  flex-direction: column;
 `;
 
-export const Title = styled.h3`
+const Title = styled.h3`
   text-align: center;
   font-size: 3rem;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
 `;
 
 const StBtn = styled.button`
-  font-size: 1.4rem;
-  bottom: 1rem;
-  right: 1rem;
+  font-size: 1.3rem;
+  text-align: center;
+  /* bottom: 1rem;
+  right: 1rem; */
+  color: var(--secondary-color);
   font-weight: 500;
-  position: absolute;
   background-color: transparent;
   border: none;
 `;

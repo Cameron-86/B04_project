@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { OAUTH, OAUTH_PROVIDERS } from "../../../constants/constants";
-import useAuth from "../../../hooks/useAuth";
-import googleLogo from "../../../assets/images/social-icons/logo_google.svg";
-import githubLogo from "../../../assets/images/social-icons/logo_github.svg";
+import { OAUTH, OAUTH_PROVIDERS } from "../../constants/constants";
+import googleLogo from "../../assets/images/social-icons/logo_google.svg";
+import githubLogo from "../../assets/images/social-icons/logo_github.svg";
+import useAuth from "../../hooks/useAuth";
 
 const SignInWithOAuth = () => {
   const { handleAuth } = useAuth(OAUTH);
@@ -23,6 +23,7 @@ export default SignInWithOAuth;
 const Container = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-top: 10px;
 `;
 
 const StBtn = styled.button`
