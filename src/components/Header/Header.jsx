@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <StHeader>
       <Container>
-        <h1>LOGO</h1>
+        <Title>LOGO</Title>
         <SearchForm />
         <Navbar />
 
@@ -40,5 +40,10 @@ const Container = styled.div`
   max-width: 1320px;
   height: 68px;
   padding: 0 1rem;
-  background-color: beige;
+  /* background-color: beige; */
+`;
+
+const Title = styled.h1`
+  font-size: 2rem;
+  font-weight: 600;
 `;
