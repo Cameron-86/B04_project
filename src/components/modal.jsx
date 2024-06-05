@@ -6,9 +6,10 @@ const Modal = ({ onClose, data }) => {
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <h2>{data.title}</h2>
         <ModalImage src={data.image_url} alt={data.title} />
-        <p>Genre: {data.genre}</p>
-        <p>Platform: {data.platform}</p>
-        <p>Distribution: {data.distribution}</p>
+        <p>{data.description}</p>
+        <p>장르: {data.genre}</p>
+        <p>플랫폼: {data.platform}</p>
+        <p>배급: {data.distribution}</p>
       </ModalContent>
     </ModalOverlay>
   );
@@ -33,11 +34,21 @@ const ModalContent = styled.div`
   background-color: white;
   padding: 20px;
   border-radius: 8px;
+  text-align: center;
+  width: 700px;
+
+  h2 {
+    font-size: 25px;
+    font-weight: bold;
+  }
+  p {
+    font-size: 16px;
+  }
 `;
 
 const ModalImage = styled.img`
-  max-width: 800px;
-  max-height: 600px;
+  max-width: 600px;
+  max-height: 500px;
   width: auto;
   height: auto;
   display: block;
