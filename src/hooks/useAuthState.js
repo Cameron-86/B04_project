@@ -12,7 +12,6 @@ const useAuthState = () => {
         console.error("fetch 에러", error.message);
         return null;
       }
-      console.log(data);
       return data;
     };
 
@@ -43,7 +42,6 @@ const useAuthState = () => {
 
           if (!existingUser) {
             await insertSocialUser(sessionUser);
-            console.log(await fetchUserById(sessionUser.id));
             setUser(await fetchUserById(sessionUser.id));
           }
 
@@ -62,7 +60,7 @@ const useAuthState = () => {
         setIsLoggedin(true);
         localStorage.setItem("isLoggedin", "true");
         localStorage.setItem("user", JSON.stringify(session.user)); // user 값을 로컬스토리지로 불러오는 부분 로직 변경 후 삭제
-        // await getSessionAndHandleUser();
+        // await getSessionAndHandleUser();   이 줄의 코드는 지워질 코드이지만 확인할게 있어 남겨두었습니다. 확인 후 삭제하겠습니다
       } else {
         localStorage.removeItem("isLoggedin");
         localStorage.removeItem("user"); // user 값을 로컬스토리지로 불러오는 부분 로직 변경 후 삭제
