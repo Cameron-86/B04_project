@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { OAUTH, OAUTH_PROVIDERS } from "../../constants/constants";
 import googleLogo from "../../assets/images/social-icons/logo_google.svg";
-import githubLogo from "../../assets/images/social-icons/logo_github.svg";
+import githubLogo from "../../assets/images/social-icons/logo_github2.svg";
 import useAuth from "../../hooks/useAuth";
 
 const SignInWithOAuth = () => {
