@@ -23,7 +23,7 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,18 +31,20 @@ const ModalOverlay = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: white;
+  background-color: var(--white);
   padding: 20px;
   border-radius: 8px;
   text-align: center;
   width: 700px;
 
   h2 {
-    font-size: 25px;
+    font-size: 2.5rem;
     font-weight: bold;
+    margin-bottom: 10px;
   }
   p {
-    font-size: 16px;
+    font-size: 1.8rem;
+    margin-top: 10px;
   }
 `;
 

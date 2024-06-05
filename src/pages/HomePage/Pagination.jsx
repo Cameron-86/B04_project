@@ -83,8 +83,8 @@ const StPagination = styled.div`
     padding: 5px;
     border: none;
     border-radius: 50%;
-    background-color: #ffbf00;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--white);
     cursor: pointer;
     width: 20px;
     height: 20px;
@@ -93,16 +93,16 @@ const StPagination = styled.div`
     justify-content: center;
 
     &:disabled {
-      background-color: #ccc;
+      background-color: var(--color-black-40);
       cursor: not-allowed;
     }
 
     &.active {
-      background-color: #e6b800;
+      background-color: var(--white);
     }
 
     &:hover:not(:disabled):not(.active) {
-      background-color: #e6b800;
+      background-color: var(--white);
     }
 
     span {
@@ -117,7 +117,7 @@ const StPagination = styled.div`
   span {
     margin: 0 5px;
     padding: 5px;
-    color: #ffbf00;
+    color: var(--secondary-color);
     display: flex;
     align-items: center;
   }

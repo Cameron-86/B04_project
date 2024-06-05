@@ -47,10 +47,10 @@ const HomePage = () => {
           Fak<span>er</span>
         </h1>
         <SearchTopContainer onSearch={handleSearch} />
-        <div className="login-buttons">
+        <StLoginButtons>
           <button>로그인</button>
           <button>가입</button>
-        </div>
+        </StLoginButtons>
       </StHeader>
 
       <StNews>
@@ -60,10 +60,10 @@ const HomePage = () => {
       </StNews>
 
       <StCommunity>
-        <div className="search-MiddleContainer">
+        <StSearchMiddleContainer>
           <button onClick={handleSortByLatest}>최신 글</button>
           <button onClick={handleSortByViews}>인기 글</button>
-        </div>
+        </StSearchMiddleContainer>
         <FakeArticle searchQuery={searchQuery} sortByViews={sortByViews} sortByLatest={sortByLatest} />
       </StCommunity>
 
@@ -91,8 +91,8 @@ const StHeader = styled.header`
   top: 0;
   width: 100%;
   height: 80px;
-  background-color: #121212;
-  box-shadow: 0 2px 4px #00000019;
+  background-color: var(--color-black-90);
+  box-shadow: 0 2px 4px var(--color-black-70);
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@ const StHeader = styled.header`
   }
 
   .title {
-    color: #ffffff;
+    color: var(--white);
     font-size: 1.5rem;
     font-weight: bold;
     text-align: left;
@@ -118,45 +118,43 @@ const StHeader = styled.header`
     span {
       font-weight: normal;
     }
-    /* text-align: center; 왼쪽으로 붙이기 위해 추가 */
-    /* cursor: pointer; 커서를 포인터로 설정하여 클릭 가능하게 보이도록 함 */
   }
+`;
 
-  .login-buttons {
-    display: flex;
-    gap: 10px;
+const StLoginButtons = styled.div`
+  display: flex;
+  gap: 10px;
 
-    button {
-      padding: 10px 18px;
-      border: none;
-      border-radius: 25px;
-      background-color: #363636;
-      color: #ffffff;
-      cursor: pointer;
-      height: 48px;
-      font-size: 15px;
-      font-weight: bold;
-      transition: 0.4s;
+  button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--color-black-50);
+    color: var(--white);
+    cursor: pointer;
+    height: 48px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: 0.4s;
 
-      &:hover {
-        background-color: #666666;
-      }
+    &:hover {
+      background-color: var(--color-black-40);
     }
   }
 `;
 
 const StNews = styled.div`
   padding: 20px 20px 70px;
-  background-color: #121212;
+  background-color: var(--color-black-90);
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--color-black-70);
   position: relative;
 `;
 
 const StCommunity = styled.div`
   padding-top: 45px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--color-black-10);
   width: 100%;
   max-width: 1320px;
   box-sizing: border-box;
@@ -166,30 +164,30 @@ const StCommunity = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+`;
 
-  .search-MiddleContainer {
-    position: relative; /* 나중에 버튼 위치 더 세밀조정 필요 */
-    /* bottom: 165px; 글목록 생성 이전 썼던 값:165px */
-    left: 0px;
-    right: 20px;
-    display: flex;
-    gap: 0px;
-  }
+const StSearchMiddleContainer = styled.div`
+  position: relative;
+
+  left: 0px;
+  right: 20px;
+  display: flex;
+  gap: 0px;
 
   button {
     height: 48px;
-    font-size: 15px;
+    font-size: 1.5rem;
     font-weight: bold;
     margin-left: 20px;
     padding: 5px 25px;
     border: none;
     border-radius: 25px;
-    background-color: #ffbf00;
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--white);
     cursor: pointer;
 
     &:hover {
-      background-color: #ffcf3e;
+      background-color: var(--color-black-30);
     }
   }
 `;
@@ -203,20 +201,20 @@ const StMoveTop = styled.div`
   justify-content: center;
   width: 48px;
   height: 48px;
-  background-color: #f56263;
+  background-color: var(--color-red-40);
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--color-black-10);
   cursor: pointer;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #d94a53;
+    background-color: var(--color-red-30);
   }
 
   button {
     border: none;
     background: none;
-    color: white;
+    color: var(--white);
     font-size: 1.5rem; /* 화살표 크기 확장 */
     font-weight: bold; /* 화살표 두께 증가 */
     cursor: pointer;

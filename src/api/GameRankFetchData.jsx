@@ -94,10 +94,10 @@ const StFetchGameList = styled.div`
 `;
 
 const StGameCard = styled.div`
-  background-color: #2a2829;
+  background-color: var(--color-black-50);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--color-black-70);
   width: calc(25% - 20px);
   box-sizing: border-box;
   text-align: left;
@@ -117,8 +117,8 @@ const StGameCard = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #ffffff;
-    font-size: 20px;
+    color: var(--white);
+    font-size: 2rem;
     margin-top: 12px;
     font-weight: bold;
   }
@@ -130,7 +130,7 @@ const StGameCard = styled.div`
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     white-space: normal;
-    color: #ffffff;
+    color: var(--white);
   }
 `;
 
@@ -138,9 +138,9 @@ const Rank = styled.div`
   position: absolute;
   top: 5px;
   left: 3px;
-  font-size: 30px;
-  color: #ffffff;
-  text-shadow: 0px 0px 20px #000000;
+  font-size: 3rem;
+  color: var(--white);
+  text-shadow: 0px 0px 20px var(--color-black-60);
   font-weight: bold;
   letter-spacing: -1.2px;
 `;

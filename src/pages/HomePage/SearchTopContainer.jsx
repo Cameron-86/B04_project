@@ -35,7 +35,7 @@ const StSearchContainer = styled.div`
     height: 48px;
     width: 100%;
     box-sizing: border-box;
-    font-size: 15px;
+    font-size: 1.5rem;
     outline: none;
   }
 
@@ -43,16 +43,16 @@ const StSearchContainer = styled.div`
     padding: 5px 24px;
     border: none;
     border-radius: 25px;
-    background-color: #ffbf00;
-    color: #ffffff;
+    background-color: var(--secondary-color);
+    color: var(--white);
     cursor: pointer;
     flex-shrink: 0;
-    font-size: 15px;
+    font-size: 1.5rem;
     font-weight: bold;
     transition: 0.4s;
 
     &:hover {
-      background-color: #ffcf3e;
+      background-color: var(--color-black-30);
     }
   }
 `;

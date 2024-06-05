@@ -62,10 +62,10 @@ const StFetchList = styled.div`
 `;
 
 const StCard = styled.div`
-  background-color: #2a2829;
+  background-color: var(--color-black-50);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--color-black-70);
   width: 300px;
   box-sizing: border-box;
   text-align: left;
@@ -74,6 +74,7 @@ const StCard = styled.div`
   white-space: nowrap;
   height: 500px;
   position: relative;
+  font-size: 2rem;
 
   &:nth-child(odd) {
     margin-top: 50px;
@@ -91,6 +92,6 @@ const StCard = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #ffffff;
+    color: var(--white);
   }
 `;
