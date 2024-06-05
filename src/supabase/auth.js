@@ -1,7 +1,10 @@
 import supabase from "./supabaseClient";
 
 export const signUp = async (email, password, nickname) => {
-  const { data, error } = await supabase.auth.signUp({
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -10,37 +13,43 @@ export const signUp = async (email, password, nickname) => {
       },
     },
   });
-
   if (error) {
-    alert("회원가입 에러: " + error.message);
+    alert("회원가입 에러", error.message);
+    return;
+  }
+  const userId = user?.id;
+
+  const { data: existingUser, error: selectError } = await supabase.from("User").select("id").eq("id", userId).single();
+
+  // PGRST116 는 테이블의 column이 0개일때 나타나는 에러
+  if (selectError && selectError.code !== "PGRST116") {
+    console.log("사용자 정보 조회 에러", selectError.message);
     return;
   }
 
-  const userId = data.user?.id;
-  const userName = email.split("@")[0];
-  localStorage.setItem("isLoggedin", "true");
-
-  const { error: insertError } = await supabase.from("user").insert({
-    id: userId,
-    email,
-    nickname,
-    user_name: userName,
-    password,
-  });
-  console.log("hi");
-  if (insertError) {
-    if (insertError.code === "23505") {
-      alert("중복된 항목이 있습니다.");
-    } else {
-      alert("테이블 업데이트 에러: " + insertError.message);
-      console.log("테이블 업데이트 에러", insertError);
-    }
+  if (!user) {
+    alert("회원가입 성공했지만 데이터 못받음");
+    return;
   } else {
-    alert("회원가입 성공 및 정보 저장 완료");
+    const userName = email.split("@")[0];
+
+    const { error: insertError } = await supabase.from("User").insert({
+      id: userId,
+      password,
+      email,
+      nickname,
+      user_name: userName,
+    });
+    if (insertError && insertError.code !== "23505") {
+      alert("테이블 업데이트 에러", insertError);
+      console.log("테이블 업데이트 에러", insertError);
+    } else {
+      alert("회원가입 성공 및 정보 저장 완료");
+    }
   }
 };
 export const signInWithEmail = async (email, password) => {
-  const { data: user, error: userError } = await supabase.from("user").select("id").eq("email", email).single();
+  const { data: user, error: userError } = await supabase.from("User").select("id").eq("email", email).single();
   console.log("hello");
   if (userError) {
     console.log("사용자 조회 에러", userError.message);
