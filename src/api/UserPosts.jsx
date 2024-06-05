@@ -1,34 +1,18 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import useFetchAllPosts from "../hooks/db/useFetchAllPostsTest";
 import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
-import supabase from "./../supabase/supabaseClient";
 
-const FakeArticle = ({ searchQuery, sortByViews, sortByLatest }) => {
-  const [data, setData] = useState([]);
+const UserPosts = ({ searchQuery, sortBy }) => {
+  const { posts } = useFetchAllPosts();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data, error } = await supabase.from("FakeData").select("*");
-
-      if (error) {
-        console.error("Error fetching data:", error);
-      } else {
-        console.log("Data fetched successfully:", data);
-        setData(data);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const filteredData = useDataFilterByQuery(data, searchQuery);
+  const filteredData = useDataFilterByQuery(posts, searchQuery);
   let sortedData = filteredData;
 
-  if (sortByViews) {
+  if (sortBy === "views") {
     sortedData = sortedData.sort((a, b) => b.views - a.views); // view 조회순 //
-  } else if (sortByLatest) {
-    sortedData = sortedData.sort((a, b) => new Date(b.date) - new Date(a.date)); // 날짜 순 //
+  } else if (sortBy === "latest") {
+    sortedData = sortedData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // 날짜 순 //
   }
 
   return (
@@ -48,7 +32,7 @@ const FakeArticle = ({ searchQuery, sortByViews, sortByLatest }) => {
   );
 };
 
-export default FakeArticle;
+export default UserPosts;
 
 const StFetchList = styled.div`
   margin-top: -10px;

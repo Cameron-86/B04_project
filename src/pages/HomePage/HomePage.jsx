@@ -5,12 +5,12 @@ import GenreDropdown from "./GenreDropdown";
 import SearchTopContainer from "./SearchTopContainer";
 
 import styled from "styled-components";
-import FakeArticle from "../../api/FakeArticle";
+
+import UserPosts from "../../api/UserPosts";
 
 const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortByViews, setSortByViews] = useState(false);
-  const [sortByLatest, setSortByLatest] = useState(false);
+  const [sortBy, setSortBy] = useState(null);
 
   // 검색 처리 함수
   const handleSearch = (query) => {
@@ -33,11 +33,11 @@ const HomePage = () => {
 
   // 인기 글 버튼 클릭 핸들러
   const handleSortByViews = () => {
-    setSortByViews(true);
+    setSortBy("views");
   };
 
   const handleSortByLatest = () => {
-    setSortByLatest(true);
+    setSortBy("latest");
   };
 
   return (
@@ -56,7 +56,7 @@ const HomePage = () => {
       <StNews>
         <GenreDropdown onGenreSelect={handleGenreSelect} />
 
-        <GameRankFetchData searchQuery={searchQuery} />
+        <GameRankFetchData searchQuery={searchQuery} sortBy={sortBy} />
       </StNews>
 
       <StCommunity>
@@ -64,7 +64,7 @@ const HomePage = () => {
           <button onClick={handleSortByLatest}>최신 글</button>
           <button onClick={handleSortByViews}>인기 글</button>
         </StSearchMiddleContainer>
-        <FakeArticle searchQuery={searchQuery} sortByViews={sortByViews} sortByLatest={sortByLatest} />
+        <UserPosts searchQuery={searchQuery} sortBy={sortBy} />
       </StCommunity>
 
       <StMoveTop onClick={handleScrollToTop}>

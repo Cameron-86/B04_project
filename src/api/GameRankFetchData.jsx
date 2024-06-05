@@ -16,7 +16,7 @@ const GameRankFetchData = ({ searchQuery }) => {
   useEffect(() => {
     const fetchData = async () => {
       const { data, error } = await supabase
-        .from("Test_best100game")
+        .from("GreatestGamesTop50")
         .select("*")
         .order("created_at", { ascending: true });
       if (error) {
@@ -69,7 +69,7 @@ const GameRankFetchData = ({ searchQuery }) => {
             </StGameCard>
           ))
         ) : (
-          <div>No games found</div>
+          <div>no data</div>
         )}
       </StFetchGameList>
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
