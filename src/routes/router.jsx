@@ -3,6 +3,7 @@ import Layout from "../components/Layout/Layout";
 import DetailPage from "../pages/DetailPage/DetailPage";
 import HomePage from "../pages/HomePage/HomePage";
 import FeedPage from "../pages/FeedPage/FeedPage";
+import AddPreview from "../pages/NewPost/AddPreview";
 import NewPost from "../pages/NewPost/NewPost";
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/write",
     element: <NewPost />,
+  },
+  {
+    path: "/write/preview",
+    element: <AddPreview />,
   },
 ]);
 

@@ -1,9 +1,7 @@
 import { useState } from "react";
-
 import GameRankFetchData from "../../api/GameRankFetchData";
 import GenreDropdown from "../../components/GenreDropdown";
 import SearchTopContainer from "../../components/SearchTopContainer";
-
 import FakeArticle from "../../api/FakeArticle";
 import { StCommunity, StHeader, StMain, StMoveTop, StNews, StFeedButton } from "./HomePageStyle";
 
