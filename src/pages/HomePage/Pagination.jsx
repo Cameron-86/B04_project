@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+// 페이지 버튼 렌더링 이벤트 처리 //
+
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const renderPageButtons = () => {
     const buttons = [];

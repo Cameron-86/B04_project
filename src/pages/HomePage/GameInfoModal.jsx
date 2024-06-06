@@ -6,12 +6,12 @@ const GameInfoModal = ({ onClose, data }) => {
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <h2>{data.title}</h2>
         <ModalImage src={data.image_url} alt={data.title} />
-
         <h3>{data.description}</h3>
+        <hr />
         <p>🎥장르: {data.genre}</p>
         <p>🕹️기종: {data.platform}</p>
         <p>💿🗃️배급: {data.distribution}</p>
-        <h1>🏆메타크리틱점수:{data.rating}</h1>
+        <p>🏆메타크리틱점수:{data.rating}</p>
       </ModalContent>
     </ModalOverlay>
   );
@@ -46,25 +46,22 @@ const ModalContent = styled.div`
     margin-bottom: 10px;
   }
   h3 {
-    padding-top: 30px;
+    padding-top: 20px;
     margin-left: 85px;
     margin-right: 85px;
     font-size: 2rem;
     font-weight: 500;
     line-height: 1.5;
   }
+  hr {
+    margin-top: 20px;
+  }
   p {
     padding: 5px;
     font-size: 1.8rem;
     margin-top: 10px;
-  }
-
-  h1 {
-    padding: 5px;
-    font-size: 1.8rem;
-    margin-top: 10px;
     text-align: left;
-    margin-left: 90px;
+    padding-left: 80px;
   }
 
   /* 미디어 쿼리 추가 */

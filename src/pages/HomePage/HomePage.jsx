@@ -36,7 +36,7 @@ const HomePage = () => {
   const handleSortByLatest = () => {
     dispatch(setSortBy("latest"));
   };
-  console.log(searchQuery);
+
   return (
     <StMain>
       <StHeader>
