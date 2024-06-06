@@ -50,9 +50,6 @@ const MyPage = () => {
     }
   }, [user]);
 
-  /// 잠깐 이것도 변경되게 될듯 desciption 가져오는 거면 로직 수정 필요 하잖아
-  console.log(useFetchAllPosts(loginUserId).posts);
-
   return (
     <>
       {isLoggedin ? <MyPageContent setIsEditModalOpen={setIsEditModalOpen} /> : goBackLogin()}

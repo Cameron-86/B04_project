@@ -43,22 +43,6 @@ const MyPageModal = ({ setIsEditModalOpen }) => {
     setIsEditModalOpen(false);
   };
 
-  const handleDeletUser = () => {
-    const deletUser = async () => {
-      const { data, error } = await supabase.from("User").delete().eq("id", loginUserId);
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-      }
-    };
-    if (confirm("정말 탈퇴하시겠습니까?")) {
-      deletUser();
-      localStorage.clear();
-      navigate("/");
-    }
-  };
-
   return (
     <Modal>
       <CloseBtn onClick={() => setIsEditModalOpen(false)}>X</CloseBtn>
@@ -76,7 +60,6 @@ const MyPageModal = ({ setIsEditModalOpen }) => {
           <input type="text" defaultValue={loginUserInfo.introduction} name="introduction" />
         </div>
         <BtnWrapper>
-          <button onClick={handleDeletUser}>회원탈퇴</button>
           <button type="submit">수정</button>
         </BtnWrapper>
       </StForm>

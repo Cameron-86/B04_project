@@ -12,6 +12,10 @@ export const UserInfoSection = styled.section`
   justify-content: space-between;
   padding: 4rem;
   padding-bottom: 3rem;
+`;
+
+export const BtnWrapper = styled.div`
+  display: flex;
   button {
     display: flex;
     align-items: end;
@@ -35,6 +39,7 @@ export const StDiv = styled.div`
   }
   p {
     font-size: 1.6rem;
+    line-height: 2.4rem;
     margin-left: 2rem;
   }
 `;
@@ -67,8 +72,15 @@ export const StLi = styled.li`
   h4 {
   }
   p {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
     margin-top: 1.2rem;
     margin-left: 1.2rem;
-    font-size: 1.8rem;
+    width: 95%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 `;

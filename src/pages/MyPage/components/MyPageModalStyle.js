@@ -51,10 +51,11 @@ export const CloseBtn = styled.button`
 `;
 export const BtnWrapper = styled.div`
   position: absolute;
-  bottom: 1.2rem;
-  left: 11.8rem;
-  & button {
-    margin-right: 2rem;
+  bottom: 10px;
+  left: 150px;
+  button {
+    width: 70px;
+    height: 30px;
     &:hover {
       cursor: pointer;
     }

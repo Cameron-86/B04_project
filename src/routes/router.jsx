@@ -21,8 +21,8 @@ const router = createBrowserRouter([
         element: <DetailPage />,
       },
       {
-        path: "/mypage",
-        element: <MyPage />,
+        path: "/feed", // FeedPage 경로 추가
+        element: <FeedPage />,
       },
       {
         path: "/mypage",
