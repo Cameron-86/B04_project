@@ -34,6 +34,7 @@ const SearchTopContainer = ({ onSearch }) => {
 };
 
 export default SearchTopContainer;
+
 const StSearchContainer = styled.div`
   display: flex;
   gap: 10px;
