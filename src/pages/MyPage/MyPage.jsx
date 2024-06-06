@@ -62,7 +62,7 @@ const MyPage = () => {
 
   return (
     <>
-      {isLoggedin ? <MyPageContent setIsEditModalOpen={setIsEditModalOpen} /> : goBackLogin()}
+      {isLoggedin ? <MyPageContent setIsEditModalOpen={setIsEditModalOpen} loginUserId={loginUserId} /> : goBackLogin()}
       {isEditModalOpen && (
         <MyPageModal setIsEditModalOpen={setIsEditModalOpen} nicknames={nicknames} loginUserId={loginUserId} />
       )}
