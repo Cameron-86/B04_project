@@ -21,8 +21,8 @@ const Navbar = () => {
   return (
     <Container>
       <div>
-        {!isLoggedin && <button onClick={() => dispatch(openModal())}>Login</button>}
-        {isLoggedin && <button onClick={handleSignOut}>Logout</button>}
+        {!isLoggedin && <button onClick={() => dispatch(openModal())}>로그인</button>}
+        {isLoggedin && <button onClick={handleSignOut}>로그아웃</button>}
         {isLoggedin && <button onClick={() => navigate("/write")}>새 글 작성</button>}
       </div>
       {user && (
@@ -41,7 +41,7 @@ const Container = styled.nav`
   align-items: center;
   gap: 30px;
   button {
-    width: 103px;
+    width: 98px;
     height: 32px;
     font-weight: 500;
     background-color: transparent;
@@ -50,8 +50,9 @@ const Container = styled.nav`
     &:hover {
       background-color: var(--secondary-color);
       color: var(--white);
+      font-size: 1.4rem;
       border: none;
-      font-weight: 600;
+      font-weight: 700;
     }
   }
 
