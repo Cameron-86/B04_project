@@ -27,9 +27,9 @@ const MyPageModal = ({ setIsEditModalOpen, nicknames, loginUserId }) => {
     } else {
       introduction = formData.get("introduction");
     }
-    if (formData.get("password").includes()) {
-      alert("자기소개는 60자를 넘을 수 없습니다.");
-      introduction = loginUserInfo.introduction;
+    if (formData.get("password").includes(" ")) {
+      alert("공백문자가 포함되어 있습니다.");
+      password = loginUserInfo.password;
     } else {
       password = formData.get("password");
     }
