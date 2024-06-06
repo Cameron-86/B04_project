@@ -6,11 +6,12 @@ const GameInfoModal = ({ onClose, data }) => {
       <ModalContent onClick={(e) => e.stopPropagation()}>
         <h2>{data.title}</h2>
         <ModalImage src={data.image_url} alt={data.title} />
+
         <h3>{data.description}</h3>
         <p>🎥장르: {data.genre}</p>
         <p>🕹️기종: {data.platform}</p>
         <p>💿🗃️배급: {data.distribution}</p>
-        <p>🏆메타크리틱점수:{data.rating}</p>
+        <h1>🏆메타크리틱점수:{data.rating}</h1>
       </ModalContent>
     </ModalOverlay>
   );
@@ -24,7 +25,7 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-
+  background-color: rgba(192, 188, 188, 0.5); /* 배경을 뿌옇게 설정합니다. */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +37,7 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  width: 700px;
+  width: 800px;
   max-width: 100%; /* 최대 너비 추가 */
 
   h2 {
@@ -46,12 +47,24 @@ const ModalContent = styled.div`
   }
   h3 {
     padding-top: 30px;
+    margin-left: 85px;
+    margin-right: 85px;
     font-size: 2rem;
     font-weight: 500;
+    line-height: 1.5;
   }
   p {
+    padding: 5px;
     font-size: 1.8rem;
     margin-top: 10px;
+  }
+
+  h1 {
+    padding: 5px;
+    font-size: 1.8rem;
+    margin-top: 10px;
+    text-align: left;
+    margin-left: 90px;
   }
 
   /* 미디어 쿼리 추가 */
@@ -67,4 +80,5 @@ const ModalImage = styled.img`
   height: auto;
   display: block;
   margin: 0 auto;
+  border-radius: 8px;
 `;

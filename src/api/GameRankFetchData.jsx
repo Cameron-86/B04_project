@@ -2,14 +2,15 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
+import usePagination from "../hooks/usePagination"; // 커스텀 훅 추가
 import GameInfoModal from "../pages/HomePage/GameInfoModal";
 import Pagination from "../pages/HomePage/Pagination";
-import { setCurrentPage, setGames, setLoading, setSelectedGame } from "../store/slices/gameRankSlice";
+import { setGames, setLoading, setSelectedGame } from "../store/slices/gameRankSlice";
 import supabase from "../supabase/supabaseClient";
 
 const GameRankFetchData = ({ searchQuery }) => {
   const dispatch = useDispatch();
-  const { games, loading, currentPage, selectedGame } = useSelector((state) => state.gameRank);
+  const { games, loading, selectedGame } = useSelector((state) => state.gameRank);
   const itemsPerPage = 4;
 
   useEffect(() => {
@@ -30,15 +31,13 @@ const GameRankFetchData = ({ searchQuery }) => {
   }, [dispatch]);
 
   const filteredGames = useDataFilterByQuery(games, searchQuery);
-  const totalPages = filteredGames.length / itemsPerPage;
 
-  const handlePageChange = (page) => {
-    dispatch(setCurrentPage(page));
-  };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredGames.slice(indexOfFirstItem, indexOfLastItem);
+  // usePagination 훅 사용
+  const { totalPages, currentItems, currentPage, handlePageChange } = usePagination(
+    filteredGames,
+    1, // 초기 페이지
+    itemsPerPage,
+  );
 
   const openGameInfoModal = (game) => {
     dispatch(setSelectedGame(game));
@@ -60,7 +59,7 @@ const GameRankFetchData = ({ searchQuery }) => {
         {currentItems.length > 0 ? (
           currentItems.map((game, index) => (
             <StGameCard key={game.id} onClick={() => openGameInfoModal(game)}>
-              {showRank && <Rank>{indexOfFirstItem + index + 1}</Rank>}
+              {showRank && <Rank>{(currentPage - 1) * itemsPerPage + index + 1}</Rank>}
               {game.image_url && <img src={game.image_url} alt={game.title} />}
               <h2>{game.title}</h2>
             </StGameCard>
@@ -101,6 +100,7 @@ const StGameCard = styled.div`
   position: relative; /* 랭킹 번호 위치를 위한 상대적 위치 설정 */
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer; /* 마우스를 올렸을 때 포인터 모양으로 변경 */
 
   img {
     width: 100%;

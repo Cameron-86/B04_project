@@ -30,7 +30,7 @@ const HomePage = () => {
 
   // 인기 글 버튼 클릭 핸들러
   const handleSortByViews = () => {
-    dispatch(setSortBy("views"));
+    dispatch(setSortBy("likes"));
   };
 
   const handleSortByLatest = () => {

@@ -9,8 +9,8 @@ const UserPosts = ({ searchQuery, sortBy }) => {
   const filteredData = useDataFilterByQuery(posts, searchQuery);
   let sortedData = filteredData;
 
-  if (sortBy === "views") {
-    sortedData = sortedData.sort((a, b) => b.views - a.views); // view 조회순 //
+  if (sortBy === "likes") {
+    sortedData = sortedData.sort((a, b) => b.likes - a.likes); // 좋아요 순//
   } else if (sortBy === "latest") {
     sortedData = sortedData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // 날짜 순 //
   }
@@ -21,7 +21,8 @@ const UserPosts = ({ searchQuery, sortBy }) => {
         sortedData.map((item) => (
           <StCard key={item.id}>
             <h2>{item.title}</h2>
-            {item.image_url && <img src={item.image_url} alt={item.title} />}
+            <h4>{item.nickname}</h4>
+            {item.img && <img src={item.img} alt={item.title} />}
             <h3>{item.description}</h3>
           </StCard>
         ))
@@ -72,10 +73,12 @@ const StCard = styled.div`
   }
 
   h2,
+  h4,
   h3 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--white);
+    padding: 10px;
   }
 `;
