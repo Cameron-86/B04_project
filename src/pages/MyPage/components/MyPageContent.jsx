@@ -49,7 +49,7 @@ const MyPageContent = ({ setIsEditModalOpen }) => {
             <StLi
               key={post.id}
               onClick={() => {
-                navigate("/"); // 후에 주소 결정되면 수정
+                navigate("/"); 
               }}
             >
               <LiContentWrapper>
