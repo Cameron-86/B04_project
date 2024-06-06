@@ -65,7 +65,7 @@ const MyPageModal = ({ setIsEditModalOpen, nicknames, loginUserId }) => {
           <input type="text" defaultValue={loginUserInfo.nickname} name="nickname" placeholder="닉네임" />
         </div>
         <div>
-          <input type="text" defaultValue={loginUserInfo.password} name="password" placeholder="비밀번호" />
+          <input type="password" defaultValue={loginUserInfo.password} name="password" placeholder="비밀번호" />
         </div>
         <div>
           <input type="text" defaultValue={loginUserInfo.introduction} name="introduction" placeholder="자기소개" />
