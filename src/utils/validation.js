@@ -2,7 +2,7 @@ export const validateCredentials = (credentials, isLoginPage, setErrorMessage) =
   let isValid = true;
   const errorMessages = { email: "", password: "", nickname: "" };
   if (!credentials.email.trim()) {
-    const emailErrorMessage = "유효한 이메일 주소를 입력해주세요.";
+    const emailErrorMessage = "이메일 주소를 입력해주세요.";
     errorMessages.email = emailErrorMessage;
     isValid = false;
   }

@@ -20,7 +20,7 @@ const AuthModal = ({ open }) => {
         <Container>
           <Title>{isLoginPage ? "로그인" : "회원가입"}</Title>
           <EmailAuth isLoginPage={isLoginPage} togglePage={toggleModalPage} />
-          <StBtn onClick={toggleModalPage}>{isLoginPage ? "이미 회원이신가요?" : "계정이 없으신가요?"}</StBtn>
+          <StBtn onClick={toggleModalPage}>{isLoginPage ? "계정이 없으신가요?" : "이미 회원이신가요?"}</StBtn>
           {isLoginPage && <SignInWithOAuth />}
         </Container>
       </StDialog>
@@ -68,18 +68,19 @@ const Container = styled.div`
 const Title = styled.h3`
   text-align: center;
   font-size: 3rem;
-  font-weight: 500;
+  font-weight: 800;
   margin-bottom: 10px;
   color: var(--secondary-color);
 `;
 
 const StBtn = styled.button`
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-align: center;
-  /* bottom: 1rem;
-  right: 1rem; */
   color: var(--secondary-color);
   font-weight: 500;
   background-color: transparent;
   border: none;
+  &:hover {
+    filter: brightness(1.1);
+  }
 `;
