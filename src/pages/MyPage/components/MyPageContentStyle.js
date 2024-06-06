@@ -9,7 +9,7 @@ export const UserInfoSection = styled.section`
   background-color: var(--color-black-50);
   color: var(--secondary-color);
   border: 1px solid var(--black);
-  border-radius: 17px;
+  border-radius: 16px;
   display: flex;
   justify-content: space-between;
   padding: 4rem;
@@ -42,7 +42,7 @@ export const StDiv = styled.div`
   p {
     color: var(--white);
     font-size: 1.6rem;
-    line-height: 2.4rem;
+    line-height: 1.5;
     margin-left: 2rem;
   }
 `;
@@ -70,16 +70,16 @@ export const StLi = styled.li`
   height: 10rem;
   overflow: hidden;
   // border: 1px solid var(--black);
-  border-radius: 17px;
+  border-radius: 16px;
   margin: 1.2rem;
   padding: 2rem 2.8rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0.7px 1px 2px 1px var(--color-black-30);
+  box-shadow: 0.6px 1px 2px 1px var(--color-black-30);
   &:hover {
     cursor: pointer;
-    scale: 1.01;
+    scale: 1.02;
   }
 `;
 
