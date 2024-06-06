@@ -23,9 +23,11 @@ const StForm = styled.form`
   input {
     border: none;
     width: 100%;
-    height: 30px;
+    height: 33px;
     border-radius: 6px;
     background-color: var(--color-black-10);
+    outline: none;
+    padding: 0 10px;
   }
   @media (max-width: 860px) {
     & {

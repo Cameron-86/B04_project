@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import useAuthState from "../../hooks/useAuthState";
 import { openModal } from "../../store/slices/authSlice";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const navigate = useNavigate();
   const { handleAuth } = useAuth(SIGN_OUT);
   const dispatch = useDispatch();
   const { isLoggedin, setIsLoggedin } = useAuthState();
@@ -20,7 +21,7 @@ const Navbar = () => {
       <div>
         {!isLoggedin && <button onClick={() => dispatch(openModal())}>Login</button>}
         {isLoggedin && <button onClick={handleSignOut}>Logout</button>}
-        {isLoggedin && <button>새 글 작성</button>}
+        {isLoggedin && <button onClick={() => navigate("/write")}>새 글 작성</button>}
       </div>
       <Link>
         <Icon />
@@ -41,6 +42,12 @@ const Container = styled.nav`
     font-weight: 500;
     background-color: transparent;
     border-radius: 16px;
+    &:hover {
+      background-color: var(--secondary-color);
+      color: var(--white);
+      border: none;
+      font-weight: 600;
+    }
   }
 
   div {
