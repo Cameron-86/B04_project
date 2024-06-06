@@ -1,13 +1,15 @@
 import { FaRegUser } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import { SIGN_OUT } from "../../constants/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useAuthState from "../../hooks/useAuthState";
 import { openModal } from "../../store/slices/authSlice";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+
   const { handleAuth } = useAuth(SIGN_OUT);
   const dispatch = useDispatch();
   const { isLoggedin, setIsLoggedin } = useAuthState();
@@ -23,7 +25,7 @@ const Navbar = () => {
         {isLoggedin && <button onClick={handleSignOut}>Logout</button>}
         {isLoggedin && <button onClick={() => navigate("/write")}>새 글 작성</button>}
       </div>
-      <Link>
+      <Link to={`/mypage/${user.id}`}>
         <Icon />
       </Link>
     </Container>

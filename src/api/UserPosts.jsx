@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import useFetchAllPosts from "../hooks/db/useFetchAllPosts";
-import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
 import useInfinityScroll from "../hooks/useInfinityScroll"; // useInfinityScroll 훅 추가
+import { filterDataByQuery } from "../utils/filterDataByQuery";
 
 const UserPosts = ({ searchQuery, sortBy }) => {
   const { posts } = useFetchAllPosts();
   const [visiblePosts, setVisiblePosts] = useState([]);
 
   // 필터링된 데이터를 상태에 저장
-  const filteredData = useDataFilterByQuery(posts, searchQuery);
+  const filteredData = useMemo(() => {
+    return filterDataByQuery(posts, searchQuery);
+  }, [posts, searchQuery]);
 
   useEffect(() => {
     let sortedData = filteredData;
