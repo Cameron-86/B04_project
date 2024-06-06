@@ -29,7 +29,6 @@ const MyPageContent = ({ setIsEditModalOpen }) => {
       navigate("/");
     }
   };
-  //
 
   return (
     <Container>

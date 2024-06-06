@@ -6,7 +6,7 @@ const initialState = {
   loginUserPosts: [],
 };
 
-const loginUserReducer = createSlice({
+const loginUserSlice = createSlice({
   initialState,
   name: "loginUser",
   reducers: {
@@ -20,7 +20,7 @@ const loginUserReducer = createSlice({
 });
 // get-> select 나한테 내가 쓰기 위해,  set -> 어딘가에 저장하거나 업데이트
 
-export const { setLoginUserInfo, setLoginUserPosts } = loginUserReducer.actions;
-export default loginUserReducer.reducer;
+export const { setLoginUserInfo, setLoginUserPosts } = loginUserSlice.actions;
+export const loginUserReducer = loginUserSlice.reducer;
 
 //return { ...state, loginUserInfo: action.payload }; // 덮어씌워짐 뒤에쓰면
