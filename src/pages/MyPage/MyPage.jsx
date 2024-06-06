@@ -16,8 +16,7 @@ const MyPage = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { isLoggedin } = useAuthState();
   const user = useSelector((state) => state.auth.user);
-
-  /// Home에서 & 주소창으로 2가지 버전 둘 다 체크해야하는데///
+  
   const goBackLogin = () => {
     alert("로그인이 필요한 기능입니다.");
     navigate("/");
@@ -29,7 +28,6 @@ const MyPage = () => {
     if (loginUserId) {
       const fetchLoginUserData = async () => {
         const { data, error } = await supabase.from("User").select("*").eq("id", loginUserId);
-        // 실제 완성본에서는 필요 없어짐
         if (error) {
           console.log(error);
         } else {
@@ -71,7 +69,3 @@ const MyPage = () => {
 };
 
 export default MyPage;
-
-// onclick 은 함수를 받고 싶은건데
-// 1. (() => {})()
-// 2. (() => {return () => {}})() O
