@@ -17,7 +17,7 @@ export const StFeedList = styled.div`
   justify-content: flex-start; /* 왼쪽 정렬로 설정합니다. */
   gap: 20px; /* 아이템 간격을 20px로 설정합니다. */
   position: relative;
-  top: 20px; /* 텍스트를 아래로 내리기 위해 추가합니다. */
+  top: 40px; /* 텍스트를 아래로 내리기 위해 추가합니다. */
 `;
 
 export const StFeedContent = styled.div`
