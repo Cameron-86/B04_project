@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
-import AuthModal from "../Auth/AuthModal/AuthModal";
-
 import styled from "styled-components";
 import SearchForm from "./SearchForm";
 import Navbar from "./Navbar";
+import AuthModal from "../Auth/AuthModal";
 
 const Header = () => {
   const isModalOpen = useSelector((state) => state.auth.isModalOpen);
