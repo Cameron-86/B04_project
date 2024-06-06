@@ -6,6 +6,8 @@ export const Container = styled.div`
   margin: 8rem auto;
 `;
 export const UserInfoSection = styled.section`
+  background-color: var(--color-black-50);
+  color: var(--secondary-color);
   border: 1px solid var(--black);
   border-radius: 17px;
   display: flex;
@@ -38,6 +40,7 @@ export const StDiv = styled.div`
     margin-bottom: 2rem;
   }
   p {
+    color: var(--white);
     font-size: 1.6rem;
     line-height: 2.4rem;
     margin-left: 2rem;
@@ -61,15 +64,28 @@ export const PostsSection = styled.ul`
 `;
 
 export const StLi = styled.li`
+  background-color: var(--color-black-20);
+  color: var(--black);
   width: 80%;
-  height: 10.6rem;
+  height: 10rem;
   overflow: hidden;
-  border: 1px solid var(--black);
+  // border: 1px solid var(--black);
   border-radius: 17px;
-  margin: 1rem;
+  margin: 1.2rem;
   padding: 2rem 2.8rem;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0.7px 1px 2px 1px var(--color-black-30);
+  &:hover {
+    cursor: pointer;
+    scale: 1.01;
+  }
+`;
+
+export const LiContentWrapper = styled.div`
   h4 {
+    font-weight: 600;
   }
   p {
     font-size: 1.8rem;
@@ -82,5 +98,13 @@ export const StLi = styled.li`
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+  }
+  div.date {
+    display: flex;
+    width: 20rem;
+    margin-left: auto;
+  }
+  p {
+    font-size: 1.6rem;
   }
 `;

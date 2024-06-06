@@ -50,7 +50,7 @@ const useAuthState = () => {
 
           if (existingUser) {
             dispatch(setUser(existingUser));
-            console.log(existingUser);
+            // console.log(existingUser);
           }
         } else {
           dispatch(setUser(await fetchUserById(sessionUser.id)));

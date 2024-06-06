@@ -1,5 +1,14 @@
 import { useSelector } from "react-redux";
-import { BtnWrapper, Container, Line, PostsSection, StDiv, StLi, UserInfoSection } from "./MyPageContentStyle";
+import {
+  BtnWrapper,
+  Container,
+  LiContentWrapper,
+  Line,
+  PostsSection,
+  StDiv,
+  StLi,
+  UserInfoSection,
+} from "./MyPageContentStyle";
 
 const MyPageContent = ({ setIsEditModalOpen }) => {
   const loginUserInfo = useSelector((state) => state.loginUser.loginUserInfo);
@@ -20,6 +29,7 @@ const MyPageContent = ({ setIsEditModalOpen }) => {
       navigate("/");
     }
   };
+  //
 
   return (
     <Container>
@@ -37,11 +47,22 @@ const MyPageContent = ({ setIsEditModalOpen }) => {
       <PostsSection>
         {loginUserPosts.map((post) => {
           return (
-            <StLi key={post.id}>
-              <div>
-                <h4>{post.title}</h4>
-                <p>{post.description}</p>
-              </div>
+            <StLi
+              key={post.id}
+              onClick={() => {
+                navigate("/"); // 후에 주소 결정되면 수정
+              }}
+            >
+              <LiContentWrapper>
+                <div>
+                  <h4>{post.title}</h4>
+                  <p>{post.description}</p>
+                </div>
+                <div className="date">
+                  <p>{post.created_at.slice(0, 10)}</p>
+                  <p>댓글 n 개</p>
+                </div>
+              </LiContentWrapper>
             </StLi>
           );
         })}
