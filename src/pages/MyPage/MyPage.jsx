@@ -21,7 +21,6 @@ const MyPage = () => {
     alert("로그인이 필요한 기능입니다.");
     navigate("/");
     dispatch(openModal());
-    공;
   };
 
   useEffect(() => {
