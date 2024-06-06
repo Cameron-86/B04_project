@@ -1,53 +1,116 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ReactQuill from "react-quill";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import usePosts from "../../hooks/db/usePosts";
+import uploadImg from "../../utils/uploadImg";
 import CustomToolbar from "./CustomToolBar/CustomToolBar";
 
 const FORMATS = [
   "font",
   "header",
   "bold",
-  "italic",
   "underline",
-  "strike",
   "blockquote",
   "list",
   "bullet",
   "indent",
-  "link",
   "align",
   "color",
   "background",
   "size",
+  "image",
 ];
 
 const USER_ID = "b7597b6f-8cb9-4965-a8eb-4d2fb416f3c5";
 
 function NewPost() {
-  const navigator = useNavigate();
-  const { createPost } = usePosts();
+  const navigate = useNavigate();
 
-  const [contents, setContents] = useState("");
   const quillRef = useRef(null);
   const titleRef = useRef(null);
-  const url = useParams();
 
-  console.log(url);
-  const modules = useMemo(() => {
-    return {
-      toolbar: {
-        container: "#toolbar",
-      },
+  const [title, setTitle] = useState(() => sessionStorage.getItem("title") || "");
+  const [contents, setContents] = useState(() => sessionStorage.getItem("contents") || "");
+
+  // 새로고침 혹은 페이지를 떠날 때 작동하는 event(세션 스토리지 비움)
+  useEffect(() => {
+    const clearSessionStorage = () => {
+      sessionStorage.removeItem("contents");
+      sessionStorage.removeItem("title");
+    };
+
+    window.addEventListener("clearSessionStorage", clearSessionStorage);
+
+    return () => {
+      window.removeEventListener("clearSessionStorage", clearSessionStorage);
     };
   }, []);
+
+  const imageHandler = async () => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files[0];
+      const imageUrl = await uploadImg(file, USER_ID, null, "images");
+
+      if (!imageUrl) {
+        console.error("Error uploading image");
+        return;
+      }
+
+      const publicUrl = imageUrl.data.publicUrl;
+
+      const quillEditor = quillRef.current.getEditor();
+      let range = quillEditor.getSelection();
+
+      if (!range) {
+        range = {
+          index: quillEditor.getLength(),
+          length: 0,
+        };
+      }
+
+      quillEditor.insertEmbed(range.index, "image", publicUrl);
+      quillEditor.setSelection(range.index + 1, 0); // 커서를 이미지 다음으로 이동
+    };
+  };
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: "#toolbar",
+        handlers: {
+          image: imageHandler,
+        },
+      },
+
+      clipboard: {
+        matchVisual: false,
+      },
+    }),
+    [],
+  );
 
   const handleResizeHeight = () => {
     if (titleRef.current) {
       titleRef.current.style.height = "auto";
       titleRef.current.style.height = titleRef.current.scrollHeight + "px";
     }
+  };
+
+  const handleTitleChange = (e) => {
+    const value = e.target.value;
+    setTitle(value);
+    sessionStorage.setItem("title", value);
+    handleResizeHeight();
+  };
+
+  const handleContentsChange = (value) => {
+    setContents(value);
+    sessionStorage.setItem("contents", value);
   };
 
   const onSubmit = (e) => {
@@ -57,16 +120,12 @@ function NewPost() {
       return;
     }
 
-    const title = titleRef.current.value;
-    const content = quillRef.current.getEditor().getText();
-    createPost({ user_id: USER_ID, title, contents });
-    console.log(title, content, contents);
-    navigator("/write/preview");
+    navigate("/write/preview");
   };
 
   const handleGoBack = () => {
     if (window.confirm("정말 메인 페이지로 가시겠습니까? 컨텐츠는 저장되지 않습니다.")) {
-      navigator("/");
+      navigate("/");
     }
   };
 
@@ -74,21 +133,23 @@ function NewPost() {
     <Container>
       <StForm onSubmit={onSubmit}>
         <div>
-          <TitleArea placeholder="제목을 입력하세요" ref={titleRef} onChange={handleResizeHeight} rows={1} />
+          <TitleArea
+            placeholder="제목을 입력하세요"
+            ref={titleRef}
+            value={title}
+            onChange={handleTitleChange}
+            rows={1}
+          />
           <hr />
         </div>
         <ContentWrapper>
           <CustomToolbar />
           <StyledReactQuill
-            ref={(element) => {
-              if (element !== null) {
-                quillRef.current = element;
-              }
-            }}
+            ref={quillRef}
             modules={modules}
             formats={FORMATS}
             value={contents}
-            onChange={setContents}
+            onChange={handleContentsChange}
             theme="snow"
             placeholder="내용을 입력해주세요"
           />

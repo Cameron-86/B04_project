@@ -1,17 +1,22 @@
-import { useRef } from "react";
+import DOMPurify from "dompurify";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import defaultProfile from "../../assets/images/default-profile.jpg";
 import useFetchPosts from "../../hooks/db/useFetchPosts";
-
-const USER_ID = "b7597b6f-8cb9-4965-a8eb-4d2fb416f3c5";
-const POST_ID = 9;
+import timeFormatter from "../../utils/timeFormatter";
+import Comments from "./Comments/Comments";
 
 const DetailPage = () => {
-  const { posts, loading } = useFetchPosts(USER_ID, POST_ID);
-  const commentInputRef = useRef();
+  const { id: POST_ID } = useParams();
+  const { posts, loading } = useFetchPosts(POST_ID);
+  const [sanitizedHTML, setSanitizedHTML] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+    if (posts?.contents) {
+      setSanitizedHTML(DOMPurify.sanitize(posts?.contents, { ALLOWED_ATTR: ["style", "class"] }));
+    }
+  }, [posts]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -21,25 +26,21 @@ const DetailPage = () => {
         <Title>{posts.title}</Title>
         <Subtitle>
           <div>
-            <span>{posts.nickname} </span>· 약 14시간 전
+            <span>{posts.nickname} </span>· <span>{timeFormatter(posts.created_at)}</span>
           </div>
           <FollowButton>팔로우</FollowButton>
         </Subtitle>
-        <Content dangerouslySetInnerHTML={{ __html: posts?.contents }} />
+
+        {typeof window !== "undefined" && <Content dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />}
 
         <UserInfoContainer>
-          <div>{posts.nickname}</div>
+          <UserInfoWrapper>
+            <ProfileImage src={defaultProfile} alt="User profile" />
+            <span>{posts.nickname}</span>
+          </UserInfoWrapper>
           <FollowButton>팔로우</FollowButton>
         </UserInfoContainer>
-        <CommentContainer>
-          <StForm onSubmit={handleSubmit}>
-            <div>n개의 댓글</div>
-            <textarea type="text" ref={commentInputRef} placeholder="댓글을 작성하세요"></textarea>
-            <ButtonWrapper>
-              <button>댓글 작성</button>
-            </ButtonWrapper>
-          </StForm>
-        </CommentContainer>
+        <Comments postId={POST_ID} />
       </Article>
     </Container>
   );
@@ -81,13 +82,18 @@ const Subtitle = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 1.6rem;
-  color: #777;
+  color: var(--color-black-40);
   margin: 10px 0px 20px 0;
   text-align: start;
 
   span {
-    color: var(--black);
-    font-weight: 600;
+    &:nth-child(1) {
+      color: var(--black);
+      font-weight: 600;
+    }
+    &:nth-child(2) {
+      font-size: 1.4rem;
+    }
   }
 `;
 
@@ -111,6 +117,34 @@ const Content = styled.div`
   font-size: 1.8rem;
   line-height: 1.5;
   text-align: left;
+
+  strong {
+    font-weight: bold;
+  }
+
+  .ql-size-small {
+    font-size: 0.75rem;
+  }
+
+  .ql-size-large {
+    font-size: 1.5rem;
+  }
+
+  .ql-size-huge {
+    font-size: 2.5rem;
+  }
+
+  .ql-align-center {
+    text-align: center;
+  }
+
+  .ql-align-right {
+    text-align: right;
+  }
+
+  .ql-align-justify {
+    text-align: justify;
+  }
 `;
 
 const UserInfoContainer = styled.div`
@@ -119,58 +153,23 @@ const UserInfoContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 120px;
-  margin: 20px 0;
-
-  div {
-    font-size: 1.8rem;
-    font-weight: 600;
-  }
+  margin: 40px 0;
+  border-bottom: 1px solid var(--color-black-20);
 `;
 
-const CommentContainer = styled.section`
-  width: 100%;
-`;
-
-const StForm = styled.form`
+const UserInfoWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  row-gap: 20px;
+  align-items: center;
 
-  div {
-    font-size: 1.8rem;
+  span {
+    font-size: 2rem;
     font-weight: 600;
-  }
-
-  textarea {
-    width: 100%;
-    max-width: 728px;
-    height: 120px;
-    padding: 20px;
-    border: 1px solid var(--color-black-20);
-    border-radius: 0.4rem;
-    outline: none;
-    resize: none;
-    font-size: 1.6rem;
-    line-height: 1.75;
   }
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-
-  button {
-    width: 110px;
-    height: 32px;
-    padding: 0 2rem;
-    border: none;
-    border-radius: 0.4rem;
-    background-color: var(--color-red-20);
-    font-weight: 600;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.8;
-    }
-  }
+const ProfileImage = styled.img`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 20px;
 `;
