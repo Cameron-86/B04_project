@@ -29,7 +29,7 @@ const HomePage = () => {
 
   return (
     <StMain>
-      <StHeader>
+      {/* <StHeader>
         <h1 className="title" onClick={handleScrollToTop}>
           Gaming<span>Nerd</span>
         </h1>
@@ -38,7 +38,7 @@ const HomePage = () => {
           <button>로그인</button>
           <button>가입</button>
         </div>
-      </StHeader>
+      </StHeader> */}
 
       <StNews>
         <GenreDropdown onGenreSelect={handleGenreSelect} />

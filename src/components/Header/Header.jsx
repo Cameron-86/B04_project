@@ -13,7 +13,6 @@ const Header = () => {
         <Title>LOGO</Title>
         <SearchForm />
         <Navbar />
-
         {isModalOpen && <AuthModal open={isModalOpen} />}
       </Container>
     </StHeader>
@@ -30,6 +29,7 @@ const StHeader = styled.header`
 
 const Container = styled.div`
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   width: 100%;
