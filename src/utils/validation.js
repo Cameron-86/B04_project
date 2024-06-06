@@ -30,6 +30,10 @@ export const validateCredentials = async (credentials, isLoginPage, setErrorMess
       const nicknameErrorMessage = "두 자리 이상의 닉네임을 입력해주세요.";
       errorMessages.nickname = nicknameErrorMessage;
       isValid = false;
+    } else if (/[^a-zA-Z0-9가-힣]/.test(credentials.nickname.trim())) {
+      const nicknameErrorMessage = "닉네임에 특수문자는 사용할 수 없습니다.";
+      errorMessages.nickname = nicknameErrorMessage;
+      isValid = false;
     } else {
       const { data } = await supabase.from("User").select("*").eq("nickname", credentials.nickname).single();
       if (data) {
