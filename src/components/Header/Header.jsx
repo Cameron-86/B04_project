@@ -4,14 +4,16 @@ import Navbar from "./Navbar";
 import AuthModal from "../Auth/AuthModal";
 import { setSearchQuery } from "../../store/slices/searchQuerySlice";
 import SearchForm from "../SearchForm";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const isModalOpen = useSelector((state) => state.auth.isModalOpen);
 
   return (
     <StHeader>
       <Container>
-        <Title>Faker</Title>
+        <Title onClick={() => navigate("/")}>Faker</Title>
         <SearchForm />
 
         <Navbar />
@@ -38,12 +40,12 @@ const Container = styled.div`
   max-width: 1320px;
   height: 68px;
   padding: 0 1rem;
-  /* background-color: beige; */
 `;
 
 const Title = styled.h1`
   position: relative;
+  cursor: pointer;
   color: var(--primary-red-color);
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 900;
 `;

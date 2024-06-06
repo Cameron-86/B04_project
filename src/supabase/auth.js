@@ -40,7 +40,7 @@ export const signUp = async (email, password, nickname) => {
   }
 };
 export const signInWithEmail = async (email, password) => {
-  const { data: user, error: userError } = await supabase.from("User").select("id").eq("email", email).single();
+  const { error: userError } = await supabase.from("User").select("id").eq("email", email).single();
   if (userError) {
     console.log("사용자 조회 에러", userError.message);
     alert("회원가입이 필요합니다.");
@@ -61,7 +61,6 @@ export const signInWithEmail = async (email, password) => {
     return { user: null, error: new Error("로그인 실패: 데이터를 받지 못했습니다.") };
   }
 
-  alert("로그인 성공");
   return { user: authData.user, error: null };
 };
 
@@ -78,7 +77,5 @@ export const signOut = async () => {
   if (error) {
     console.log(error);
     alert("로그아웃실패");
-  } else {
-    alert("로그아웃성공");
   }
 };

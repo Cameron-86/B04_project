@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import UserPosts from "../../api/UserPosts";
 import { setGameSortBy, setSortBy } from "../../store/slices/searchQuerySlice";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,9 @@ const HomePage = () => {
         <StSearchMiddleContainer>
           <button onClick={handleSortByLatest}>최신 글</button>
           <button onClick={handleSortByViews}>인기 글</button>
+          <StFeedButton to="/feed">내 피드</StFeedButton>
         </StSearchMiddleContainer>
+
         <UserPosts searchQuery={searchQuery} sortBy={sortBy} />
       </StCommunity>
 
@@ -213,5 +216,25 @@ const StMoveTop = styled.div`
     font-weight: bold; /* 화살표 두께 증가 */
     cursor: pointer;
     outline: none;
+  }
+`;
+
+export const StFeedButton = styled(Link)`
+  height: 48px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-left: 20px;
+  padding: 0px 25px;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--secondary-color);
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex; /* 컨테이너를 플렉스 컨테이너로 설정합니다. */
+  align-items: center; /* 수직 정렬을 설정합니다. */
+  justify-content: center; /* 수평 정렬을 설정합니다. */
+  &:hover {
+    background-color: var(--secondary-color);
   }
 `;

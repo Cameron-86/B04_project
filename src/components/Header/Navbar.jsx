@@ -25,9 +25,11 @@ const Navbar = () => {
         {isLoggedin && <button onClick={handleSignOut}>Logout</button>}
         {isLoggedin && <button onClick={() => navigate("/write")}>새 글 작성</button>}
       </div>
-      {/* <Link to={`/mypage/${user.id}`}>
-        <Icon />
-      </Link> */}
+      {user && (
+        <Link to={`/mypage/${user.id}`}>
+          <Icon />
+        </Link>
+      )}
     </Container>
   );
 };
