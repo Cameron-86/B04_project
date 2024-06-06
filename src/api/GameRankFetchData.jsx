@@ -8,7 +8,7 @@ import Pagination from "../pages/HomePage/Pagination";
 import { setGames, setLoading, setSelectedGame } from "../store/slices/gameRankSlice";
 import supabase from "../supabase/supabaseClient";
 
-const GameRankFetchData = ({ searchQuery }) => {
+const GameRankFetchData = ({ gameSortBy }) => {
   const dispatch = useDispatch();
   const { games, loading, selectedGame } = useSelector((state) => state.gameRank);
   const itemsPerPage = 4;
@@ -30,7 +30,7 @@ const GameRankFetchData = ({ searchQuery }) => {
     fetchData();
   }, [dispatch]);
 
-  const filteredGames = useDataFilterByQuery(games, searchQuery);
+  const filteredGames = useDataFilterByQuery(games, gameSortBy);
 
   // usePagination 훅 사용
   const { totalPages, currentItems, currentPage, handlePageChange } = usePagination(
@@ -51,7 +51,7 @@ const GameRankFetchData = ({ searchQuery }) => {
     return <div>Loading...</div>;
   }
 
-  const showRank = searchQuery === "";
+  const showRank = gameSortBy === "";
 
   return (
     <StContainer>
