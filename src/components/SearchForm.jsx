@@ -31,7 +31,9 @@ const SearchForm = () => {
     // </StSearchContainer>
     <StForm onSubmit={handleSearch}>
       <input type="text" placeholder="검색" value={query} onChange={handleInputChange} />
-      <StIcon />
+      <button>
+        <StIcon />
+      </button>
     </StForm>
   );
 };
@@ -69,6 +71,10 @@ const StForm = styled.form`
     @media (max-width: 600px) {
       display: none;
     }
+  }
+  button {
+    background-color: transparent;
+    border: none;
   }
 `;
 const StIcon = styled(FaSearch)`
