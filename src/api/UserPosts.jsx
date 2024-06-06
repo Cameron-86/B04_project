@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import useFetchAllPosts from "../hooks/db/useFetchAllPostsTest";
+import useFetchAllPosts from "../hooks/db/useFetchAllPosts";
 import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
 import useInfinityScroll from "../hooks/useInfinityScroll"; // useInfinityScroll 훅 추가
 

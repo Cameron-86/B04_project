@@ -53,7 +53,7 @@ const HomePage = () => {
       <StNews>
         <GenreDropdown onGenreSelect={handleGenreSelect} />
 
-        <GameRankFetchData searchQuery={searchQuery} sortBy={sortBy} />
+        <GameRankFetchData />
       </StNews>
 
       <StCommunity>
