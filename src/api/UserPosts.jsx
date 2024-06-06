@@ -1,24 +1,40 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-
 import useFetchAllPosts from "../hooks/db/useFetchAllPostsTest";
 import useDataFilterByQuery from "../hooks/useDataFilterByQuery";
+import useInfinityScroll from "../hooks/useInfinityScroll"; // useInfinityScroll 훅 추가
 
 const UserPosts = ({ searchQuery, sortBy }) => {
   const { posts } = useFetchAllPosts();
+  const [visiblePosts, setVisiblePosts] = useState([]);
 
+  // 필터링된 데이터를 상태에 저장
   const filteredData = useDataFilterByQuery(posts, searchQuery);
-  let sortedData = filteredData;
 
-  if (sortBy === "likes") {
-    sortedData = sortedData.sort((a, b) => b.likes - a.likes); // 좋아요 순//
-  } else if (sortBy === "latest") {
-    sortedData = sortedData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // 날짜 순 //
-  }
+  useEffect(() => {
+    let sortedData = filteredData;
+
+    if (sortBy === "likes") {
+      sortedData = sortedData.sort((a, b) => b.likes - a.likes);
+    } else if (sortBy === "latest") {
+      sortedData = sortedData.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    }
+
+    setVisiblePosts(sortedData.slice(0, 8)); // 초기에 8개의 포스트만 보이도록 설정
+  }, [filteredData, sortBy]);
+
+  // 무한 스크롤 이벤트 핸들러
+  useInfinityScroll(() => {
+    setVisiblePosts((prevVisiblePosts) => {
+      const nextVisiblePosts = posts.slice(0, prevVisiblePosts.length + 8);
+      return nextVisiblePosts;
+    });
+  });
 
   return (
     <StFetchList>
-      {sortedData.length > 0 ? (
-        sortedData.map((item) => (
+      {visiblePosts.length > 0 ? (
+        visiblePosts.map((item) => (
           <StCard key={item.id}>
             <h2>{item.title}</h2>
             <h4>{item.nickname}</h4>
