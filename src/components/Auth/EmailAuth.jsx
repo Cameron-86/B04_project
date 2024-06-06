@@ -127,6 +127,7 @@ export const StForm = styled.form`
 
   span {
     color: var(--color-red-40);
+    margin-left: 4px;
     font-weight: 500;
     font-size: 1.4rem;
     position: absolute;
