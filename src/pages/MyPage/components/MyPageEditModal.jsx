@@ -34,7 +34,6 @@ const MyPageModal = ({ setIsEditModalOpen, nicknames, loginUserId }) => {
       password = formData.get("password");
     }
 
-    // api만 모아서 리펙토링 해보기
     const updateUserProfile = async () => {
       const { data, error } = await supabase
         .from("User")
