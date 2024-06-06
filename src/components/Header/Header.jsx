@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import SearchForm from "./SearchForm";
 import Navbar from "./Navbar";
 import AuthModal from "../Auth/AuthModal";
+import { setSearchQuery } from "../../store/slices/searchQuerySlice";
+import SearchForm from "../SearchForm";
 
 const Header = () => {
   const isModalOpen = useSelector((state) => state.auth.isModalOpen);
@@ -12,6 +13,7 @@ const Header = () => {
       <Container>
         <Title>LOGO</Title>
         <SearchForm />
+
         <Navbar />
         {isModalOpen && <AuthModal open={isModalOpen} />}
       </Container>
