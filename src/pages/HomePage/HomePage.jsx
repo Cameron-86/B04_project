@@ -6,21 +6,20 @@ import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
 import UserPosts from "../../api/UserPosts";
-import { setSearchQuery, setSortBy } from "../../store/slices/searchQuerySlice";
+import { setGameSortBy, setSearchQuery, setSortBy } from "../../store/slices/searchQuerySlice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { searchQuery = "", sortBy = null } = useSelector((state) => state.searchQuery || {});
-
+  const { searchQuery = "", gameSortBy = "", sortBy = null } = useSelector((state) => state.searchQuery || {});
   const handleSearch = (query) => {
     dispatch(setSearchQuery(query));
   };
 
   const handleGenreSelect = (genre) => {
     if (genre === "전체") {
-      dispatch(setSearchQuery(""));
+      dispatch(setGameSortBy(""));
     } else {
-      dispatch(setSearchQuery(genre));
+      dispatch(setGameSortBy(genre));
     }
   };
   // 스크롤을 최상단으로 이동하는 함수
@@ -53,7 +52,7 @@ const HomePage = () => {
       <StNews>
         <GenreDropdown onGenreSelect={handleGenreSelect} />
 
-        <GameRankFetchData />
+        <GameRankFetchData gameSortBy={gameSortBy} sortBy={sortBy} />
       </StNews>
 
       <StCommunity>

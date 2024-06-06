@@ -4,12 +4,17 @@ export const searchSlice = createSlice({
   name: "search",
   initialState: {
     searchQuery: "",
+    gameSortBy: "",
     sortBy: null,
   },
   reducers: {
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+    setGameSortBy: (state, action) => {
+      state.gameSortBy = action.payload;
+    },
+
     setSortBy: (state, action) => {
       state.sortBy = action.payload;
     },
@@ -20,6 +25,6 @@ export const searchSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, setSortBy, resetSearch } = searchSlice.actions;
+export const { setSearchQuery, setGameSortBy, setSortBy, resetSearch } = searchSlice.actions;
 
 export default searchSlice.reducer;
