@@ -8,21 +8,28 @@ const SearchTopContainer = ({ onSearch }) => {
   const handleInputChange = (e) => {
     setQuery(e.target.value);
   };
+
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
     onSearch(query);
   };
 
+  // 엔터 키를 눌렀을 때 검색 버튼 클릭 핸들러
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <StSearchContainer>
-      <input type="text" placeholder="검색" value={query} onChange={handleInputChange} />
+      <input type="text" placeholder="검색" value={query} onChange={handleInputChange} onKeyPress={handleKeyPress} />
       <button onClick={handleSearch}>검색</button>
     </StSearchContainer>
   );
 };
 
 export default SearchTopContainer;
-
 const StSearchContainer = styled.div`
   display: flex;
   gap: 10px;
