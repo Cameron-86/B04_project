@@ -48,7 +48,6 @@ const MyPageContent = ({ setIsEditModalOpen, loginUserId }) => {
   };
 
   const commentCount = (id) => {
-    console.log(usedPostId);
     let count = 0;
     for (let check of usedPostId) {
       if (id === check) {
