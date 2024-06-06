@@ -15,6 +15,8 @@ export const StDiv = styled.div`
 `;
 
 export const StDialog = styled.dialog`
+  z-index: 1000;
+
   background-color: white;
   padding: 4rem;
   border-radius: 1.6rem;
