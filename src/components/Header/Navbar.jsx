@@ -42,6 +42,7 @@ const Container = styled.nav`
     font-weight: 500;
     background-color: transparent;
     border-radius: 16px;
+    transition: all 100ms ease-out;
     &:hover {
       background-color: var(--secondary-color);
       color: var(--white);
