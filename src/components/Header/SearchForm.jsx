@@ -13,13 +13,12 @@ const SearchForm = () => {
 export default SearchForm;
 
 const StForm = styled.form`
-  position: absolute;
   display: flex;
   align-items: center;
+  position: absolute;
   left: 50%;
-  width: 35%;
-
   transform: translateX(-50%);
+  width: 35%;
 
   input {
     border: none;
@@ -28,17 +27,20 @@ const StForm = styled.form`
     border-radius: 6px;
     background-color: var(--color-black-10);
   }
-
-  @media (max-width: 600px) {
-    max-width: 400px;
+  @media (max-width: 860px) {
+    & {
+      position: static;
+      transform: none;
+    }
   }
-
-  @media (max-width: 500px) {
-    max-width: 350px;
-  }
-
-  @media (max-width: 400px) {
-    max-width: 300px;
+  @media (max-width: 700px) {
+    & {
+      width: 230px;
+      /* display: none; */
+    }
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 `;
 const StIcon = styled(FaSearch)`

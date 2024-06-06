@@ -20,7 +20,7 @@ const Navbar = () => {
       <div>
         {!isLoggedin && <button onClick={() => dispatch(openModal())}>Login</button>}
         {isLoggedin && <button onClick={handleSignOut}>Logout</button>}
-        {isLoggedin && <button onClick={handleSignOut}>새 글 작성</button>}
+        {isLoggedin && <button>새 글 작성</button>}
       </div>
       <Link>
         <Icon />
