@@ -10,7 +10,6 @@ const EmailAuth = ({ isLoginPage }) => {
   const [errorMessage, setErrorMessage] = useState(initialState);
   const actionType = isLoginPage ? EMAIL_SIGN_IN : EMAIL_SIGN_UP;
   const { handleAuth } = useAuth(actionType);
-  console.log(errorMessage);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
