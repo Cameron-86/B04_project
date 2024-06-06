@@ -11,6 +11,10 @@ const SearchTopContainer = ({ onSearch }) => {
 
   // 검색 버튼 클릭 핸들러
   const handleSearch = () => {
+    if (!query.trim()) {
+      alert("검색어를 입력해주세요");
+      return;
+    }
     onSearch(query);
   };
 
