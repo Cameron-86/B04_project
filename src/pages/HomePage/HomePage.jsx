@@ -1,11 +1,10 @@
-import GameRankFetchData from "../../api/GameRankFetchData";
-import GenreDropdown from "./GenreDropdown";
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import GameRankFetchData from "../../api/GameRankFetchData";
 import UserPosts from "../../api/UserPosts";
 import { setGameSortBy, setSortBy } from "../../store/slices/searchQuerySlice";
-import { Link } from "react-router-dom";
-
+import GenreDropdown from "./GenreDropdown";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -23,10 +22,7 @@ const HomePage = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // 인기 글 버튼 클릭 핸들러
-  const handleSortByViews = () => {
-    dispatch(setSortBy("likes"));
-  };
+  // 최신 글 버튼 클릭 핸들러
 
   const handleSortByLatest = () => {
     dispatch(setSortBy("latest"));
@@ -58,7 +54,7 @@ const HomePage = () => {
       <StCommunity>
         <StSearchMiddleContainer>
           <button onClick={handleSortByLatest}>최신 글</button>
-          <button onClick={handleSortByViews}>인기 글</button>
+
           <StFeedButton to="/feed">내 피드</StFeedButton>
         </StSearchMiddleContainer>
 
